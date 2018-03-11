@@ -1,0 +1,138 @@
+\documentclass{article}
+
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\usepackage{pgfplots}
+
+\title{STAT 672: Homework \#1}
+\author{Tom Wallace}
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 1}
+
+\subsection*{A}
+
+See attached code \texttt{hw1\_A.py} for an implementation of rejection sampling
+from the unit cube.
+
+\smallskip
+
+The acceptance probability is the volume of an $n$-dimensional ball divided by
+the volume of an $n$-dimensional cube:
+
+\begin{equation}
+P_{X \sim B^d_\infty}(||X||_2 \leq 1) =
+\frac{\mathrm{Vol}(B^d_2)}{\mathrm{Vol}(B^2_\infty)}
+= \frac{\frac{\pi ^ {d/2}}{\Gamma(\frac{d}{2} + 1)}}{2^d}
+\end{equation}
+
+We know that $\Gamma (n+1) = n!$ Thus, $\Gamma (\frac{d}{2} + 1) = (\frac{d}{2})!$
+
+\smallskip
+
+Stirling's approximation for factorials is useful here.
+
+\begin{equation}
+n! \approx \sqrt{2 \pi n}n^ne^{-n}
+\end{equation}
+
+Let us consider the case of $2d$. In this case:
+
+\begin{equation}
+\mathrm{Vol}(B^{2d}_2) = \frac{\pi ^ d}{\Gamma(d + 1)} = \frac{\pi^d}{d!}
+\approx \frac{\pi^d}{\sqrt{2\pi d}d^de^{-d}}
+\end{equation}
+
+Rearranging terms, we have:
+
+\begin{equation}
+= \frac{1}{\sqrt{2\pi d}} \left( \frac{\pi e}{d} \right)^d
+\end{equation}
+
+Referring to $ \left( \frac{\pi e}{d} \right)^d$, the denominator grows faster with $d$ than does the
+numerator. We
+can show this more formally by computing the derivative of the numerator and of the
+denominator, respectively:
+
+\begin{equation}
+\frac{d}{dx} ((\pi e)^x) = (\pi e)^x (1 + \ln \pi)
+\end{equation}
+
+\begin{equation}
+\frac{d}{dx}(x^x) = x^x (1 + \ln x)
+\end{equation}
+
+As $x$ grows larger, (6) becomes increasingly larger than (5). As a consequence, if we extend $d$ infinitely, 
+the limit of the ratio is 0.
+
+\begin{equation}
+\lim_{d \to \infty} \left( \frac{\pi e}{d} \right)^d = 0
+\end{equation}
+
+Which implies:
+\begin{equation}
+\lim_{d \to \infty} \frac{1}{\sqrt{2\pi d}} \left( \frac{\pi e}{d} \right)^d = 0
+\end{equation}
+
+In other words, as $d \to \infty$, more and more of the volume of the unit ball
+is contained near its surface. This phenomenon is called \textit{concentration
+of measure}.
+
+\smallskip
+
+Returning to (1), we compute the the volume of the unit cube as $d \to \infty$.
+
+\begin{equation}
+\lim_{d \to \infty} 2^{2d} = \infty
+\end{equation}
+
+So, the ratio of the unit sphere to the unit cube is:
+
+\begin{equation}
+\lim_{d \to \infty} \frac{\mathrm{Vol}(B^d_2)}{\mathrm{Vol}(B^2_\infty)} =
+\frac{0}{\infty} = 0
+\end{equation}
+
+Since this ratio also is the probability of accepting a sample in a rejection sampling
+scheme, our expected runtime to generate a single random vector from $\mathrm{B}^d_2$ with
+rejection sampling grows asymptotically with $d$. For example, for $d=10000$, our
+program would run for a very, very, \textit{very} long time. 
+
+\subsection*{B}
+We can generate $\Theta$ as $\Theta = Z / ||Z||_2$, where $Z \sim N(0, I_d)$ due
+to the Box-Muller (B-M) transformation. 
+
+\section*{Problem 2}
+
+\subsection*{A}
+
+Below are the results of my simulation, the code of which is attached as
+\texttt{hw1\_B.py}. As $d$ grows larger, the frequency of the event $\{||X_+ -
+Z||_2 \geq ||X_{-} - Z||_2\}$ increases. This is somewhat counter-intuitive.
+Because $Z$ is drawn from the same distribution as $X_+$, we would expect their
+difference $X_+ - Z$ to result in something close to a zero-vector, which should
+be smaller than the difference between $X_-$ and $Z$ (since they have different
+means and hence should have a larger difference). Yet, as dimensionality grows,
+this is not the case: the event occurs with increasing frequency. This has two
+explanations. One, because the mean is $\pm 5/\sqrt{d}$, as $d$ increases, the
+means increasingly converge towards 0. Two, $X_+$ and $Z$ have larger variance than
+$X_-$, and this variance does not decrease with $d$. Thus, as $d$ increases, the
+larger variance of $X_+$ and $Z$ predominates over their increasingly similar
+means, resulting in them more often being further apart (their difference has a
+larger Euclidean norm) than $X_-$ and $Z$.
+
+\begin{tikzpicture}
+\begin{axis}[ylabel = Number of Events, 
+	     xlabel = Dimensionality, 
+	     xbar interval = 0.8,
+\addplot[fill=blue] coordinates { (foo, 1) (bar, 2)};
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

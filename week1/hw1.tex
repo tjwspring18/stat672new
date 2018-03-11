@@ -1,0 +1,78 @@
+\documentclass{article}
+\begin{document}
+
+\section{Problem 1}
+
+$f(x) = ||\mathbf{Ax-b}||^2_2$
+
+\medskip
+
+This is just the ordinary least squares OLS problem
+
+$= (\mathbf{Ax-b)'(Ax-b)}$
+
+$= (\mathbf{x'A'-b')(Ax-b)}$
+
+$= \mathbf{x'A'Ax - x'A'b - b'Ax + b'b}$
+
+$= \mathbf{x'A'Ax - 2x'A'b + b'b}$
+
+\medskip
+
+$\nabla f(x) = \mathbf{2A'Ax-2A'b}$
+
+$\nabla^2 f(x) = \mathbf{2A'A}$
+
+\medskip
+
+Reminders:
+
+$\mathbf{Av = \lambda v}$
+
+$\mathbf{v}$ is an eigenvector if it satisfies this equation
+
+$\lambda$ is the eigenvalue corresponding to $\mathbf{v}$
+
+Eigenvectors are the vectors that linear transformation $\mathbf{A}$ merely elongates or shrinks (as opposed to
+rotating)
+
+Eigenvalue is the amount that they elongate or shrink
+
+To find, solve $det(\mathbf{A-\lambda I})=0$ (characteristic equation)
+
+Eigendecomposition: $\mathbf{A=Q \Lambda Q^{-1}}$
+
+$\mathbf{Q}$ is a $n \times n$ matrix whose $i$'th column is eigenvector $q_i$ of $\mathbf{A}$
+
+$\Lambda$ is a diagonal matrix for which $\Lambda_{ii}=\lambda_i$
+
+If eigenvalues of Hessian are all positive, then $\mathbf{A}$ is positive semi-definite (multivariate equivalent of
+convex)
+
+If all negative, then $\mathbf{A}$ is negative-definite (multivariate equivalent of concave)
+
+Matrix $\mathbf{A}$ is positive definite IFF $\mathbf{A}=\mathbf{R}'\mathbf{R}$, where $\mathbf{R}$ is a matrix with
+independent columns (full rank)
+
+\medskip
+
+So, in our case, assuming $\mathbf{A}$ is of full rank, since it has a Hessian of $\mathbf{A}\mathbf{A}'$, it is positive
+definite and so all eigenvalues are positive.
+
+\medskip
+
+The necessary and sufficient condition for $x^*$ to be a minimizer of $f(x)$ is that the gradient is 0 at $x^*$
+
+\medskip
+
+$f$ has a unique minimizer if $A$ is positive definite
+
+\section{Problem 2}
+
+By the law of total probability, $ f_{X}(x) = \sum_{k=1}^K f_{X|Y=k}(x|k) f_Y(k)$
+
+\medskip
+
+$P(Y=k|X=x) = \frac{P(X=x|Y=k)P(Y=k)}{P(X=x|Y=k)P(Y=k)+P(X=x|Y\neq k)P(Y\neq k)}$
+$=\frac{f_{X|Y=k}(x)P(Y=k)}{f_X(x)}$
+\end{document}
