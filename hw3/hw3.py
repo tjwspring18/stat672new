@@ -1,13 +1,16 @@
+#TODO: email Slawski about scaling and centering - skl?
 import scipy as sp
 import numpy as np
-from sklearn.preprocessing import PolynomialFeatures
+from sklearn import preprocessing
+from sklearn.linear_model import Ridge
 
 '''
 Note: I wrote the following function to generate the desired feature matrix
 containing all quadratic and interaction terms of X. However, after doing so I
 uncovered a scikitlearn function that does the exact same thing and so just use
 that
-
+'''
+'''
 def GeneratePhiMatrix(X):
 
 	# get dimensions of X
@@ -74,58 +77,51 @@ def GenerateTrain(a, i):
 
 	return(train)
 
-# function to center matrix
-def Center(a):
+# function to center and scale matrix
+def CenterAndScale(a):
 
 	# compute column means
 	col_means = np.mean(a, axis=0)
 
-	# subtract col means from relevant cols
-	a = a - col_means
+	# subtract col means to center matrix
+	cen = a - col_means
 
-	return(a)
+	# compute L2 norms of columns of centered matrix
+	cen_norm = np.sqrt(np.sum(pow(cen, 2), axis = 0))
 
-# function to scale matrix
-def Scale(a):
+	# divide centered matrix by column norms
+	out = cen / cen_norm
+	
+	return(out)
 
-	# square matrix
-	s = pow(a, 2)
+# function to compute S_Lambda
+def ComputeS_Lambda(S, Lambda):
 
-	# compute column sums of squared matrix
-	s_squared = np.sum(s, axis = 0)
+	# number of coefficients 
+	# same as number of singular values
+	n = len(S)
 
-	# take square root of these sums
-	s_squared_root = np.sqrt(s_squared)
+	# make s_lambda matrix
+	
+	# initialize as n x n zero matrix
+	S_Lambda = np.zeros((n, n))
 
-	# divide original matrix by these square roots
-	a = a / s_squared_root
+	# fill in along diagonal
+	vals = S / (pow(S, 2) + Lambda)
+	np.fill_diagonal(S_Lambda, vals)
 
-	return(a)
+	return(S_Lambda)
 
-
-# generate lambda
-
-# compute SVD of X_train
-
-# calculate \hat{w}_{ridge}
-
-# function to compute test error
-
-'''
 # read data
 X = np.genfromtxt('hw3_X.csv', delimiter = ',')
 Y = np.genfromtxt('hw3_Y.csv', delimiter = ',')
 
-# generate feature matrix
-Phi = GeneratePhiMatrix(X)
+# generate feature matrix Phi
+poly = preprocessing.PolynomialFeatures(2)
+Phi = poly.fit_transform(X)
 
-#alternate way of doing so
-poly = PolynomialFeatures(2)
-Phi2 = poly.fit_transform(X)
-Phi2 = np.delete(Phi2, 0, 1)
-
-print(np.sum(Phi))
-print(np.sum(Phi2))
+# delete first column of Phi (which is all 1's)
+Phi = np.delete(Phi, 0, 1)
 
 # segregate into training and test sets
 
@@ -133,9 +129,40 @@ print(np.sum(Phi2))
 trainPhi = GenerateTrain(Phi, 4)
 trainY = GenerateTrain(Y, 4)
 
-#test
+# test
 testPhi = GenerateTest(Phi, 4)
-testY = GenerateTest(Y,4)
+testY = GenerateTest(Y, 4)
 
-# center and scale training sets
+# center and scale training X
+trainPhi = CenterAndScale(trainPhi)
+
+# list lambdas
+lambdas = list(np.arange(-13, 9.5, 0.5))
+
+# take SVD of testPhi
+
+'''
+svd = np.linalg.svd(trainPhi)
+U = svd[0]
+S = svd[1]
+V = svd[2]
+S_Lambda = ComputeS_Lambda(S, 1.0)
+'''
+
+print(U.shape)
+print(trainY.shape)
+print(S.shape)
+print(S_Lambda.shape)
+print(V.shape)
+
+# U: 6000 x 3080
+# trainY: 6000 x 1
+# S: 3080 x 3080
+# S_Lambda: 3080 x 3080
+# V: 3080 x 3080
+
+'''
+foo = np.reshape(np.matmul(U.T, trainY), (-1, 1))
+bar = np.matmul(S_Lambda, foo)
+fizz = np.matmul(V, bar)
 '''
