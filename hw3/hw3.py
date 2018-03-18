@@ -2,7 +2,7 @@
 import scipy as sp
 import numpy as np
 from sklearn import preprocessing
-from sklearn.linear_model import Ridge
+from sklearn import linear_model
 
 '''
 Note: I wrote the following function to generate the desired feature matrix
@@ -77,24 +77,26 @@ def GenerateTrain(a, i):
 
 	return(train)
 
-# function to center and scale matrix
-def CenterAndScale(a):
+def Center(a):
 
 	# compute column means
 	col_means = np.mean(a, axis=0)
 
 	# subtract col means to center matrix
-	cen = a - col_means
+	out = a - col_means
 
-	# compute L2 norms of columns of centered matrix
-	cen_norm = np.sqrt(np.sum(pow(cen, 2), axis = 0))
+	return(out)
 
-	# divide centered matrix by column norms
-	out = cen / cen_norm
+def Scale(a):
+
+	# compute L2 norms of columns of matrix
+	norm = np.sqrt(np.sum(pow(a, 2), axis = 0))
+
+	# divide matrix by column norms
+	out = a / norm
 	
 	return(out)
 
-# function to compute S_Lambda
 def ComputeS_Lambda(S, Lambda):
 
 	# number of coefficients 
@@ -133,36 +135,28 @@ trainY = GenerateTrain(Y, 4)
 testPhi = GenerateTest(Phi, 4)
 testY = GenerateTest(Y, 4)
 
-# center and scale training X
-trainPhi = CenterAndScale(trainPhi)
+# center and scale training X and Y
+trainPhi = Scale(Center(trainPhi))
+trainY = Center(trainY)
 
 # list lambdas
 lambdas = list(np.arange(-13, 9.5, 0.5))
 
 # take SVD of testPhi
+U, S, V = np.linalg.svd(trainPhi, full_matrices = False)
 
-'''
-svd = np.linalg.svd(trainPhi)
-U = svd[0]
-S = svd[1]
-V = svd[2]
+# compute S_Lambda
 S_Lambda = ComputeS_Lambda(S, 1.0)
-'''
 
-print(U.shape)
-print(trainY.shape)
-print(S.shape)
-print(S_Lambda.shape)
-print(V.shape)
+# ridge regression coefficients can be calculated as:
+# V * S_Lambda * U.T * Y_train
+# this is most efficiently computed from right to left
 
-# U: 6000 x 3080
-# trainY: 6000 x 1
-# S: 3080 x 3080
-# S_Lambda: 3080 x 3080
-# V: 3080 x 3080
+# U.t * trainY
+ridge_coeffs = np.matmul(V.T, np.matmul(S_Lambda, np.reshape(np.matmul(U.T, trainY), (-1, 1))))
+print(ridge_coeffs)
 
-'''
-foo = np.reshape(np.matmul(U.T, trainY), (-1, 1))
-bar = np.matmul(S_Lambda, foo)
-fizz = np.matmul(V, bar)
-'''
+# compare to differently computed
+ridge_skl = linear_model.Ridge(alpha=1.0, fit_intercept = False)
+fit = ridge_skl.fit(trainPhi, trainY)
+print(fit.coef_)
