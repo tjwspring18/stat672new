@@ -1,51 +1,6 @@
-#TODO: email Slawski about scaling and centering - skl?
-import scipy as sp
 import numpy as np
 from sklearn import preprocessing
 from sklearn import linear_model
-
-'''
-Note: I wrote the following function to generate the desired feature matrix
-containing all quadratic and interaction terms of X. However, after doing so I
-uncovered a scikitlearn function that does the exact same thing and so just use
-that
-'''
-'''
-def GeneratePhiMatrix(X):
-
-	# get dimensions of X
-	nrow = X.shape[0]
-	ncol = X.shape[1]
-
-	# preallocate final array 
-	# this is *much* more memory-efficient than alternate approaches
-	mat = np.zeros((nrow, int(ncol*2 + sp.special.comb(ncol, 2))))
-
-	# first "chunk" of final array is just X
-	mat[0:nrow, 0:ncol] = X
-
-	# second "chunk" of final array is quadratic form of X
-	mat[0:nrow, ncol+1:(2*ncol+1)] = pow(X, 2)
-
-	# third "chunk" of final array is interaction terms
-
-	# create empty list 
-	lst = list()
-
-	# generate all interaction terms 
-	# apppend to list
-	for i in range(0, ncol):
-		for j in range(i+1, ncol):
-			col = X[:,i] * X[:,j]
-			lst.append(col)
-	
-	# assign columns from list to preallocated array
-	for i in range(0, len(lst)):
-		col = lst[i]
-		mat[0:nrow, ncol*2+i] = col
-
-	return(mat)
-'''
 
 # function to create test set consisting of every i'th observation
 def GenerateTest(a, i):
@@ -114,49 +69,141 @@ def ComputeS_Lambda(S, Lambda):
 
 	return(S_Lambda)
 
-# read data
-X = np.genfromtxt('hw3_X.csv', delimiter = ',')
-Y = np.genfromtxt('hw3_Y.csv', delimiter = ',')
+def RidgeRegression(U, S_Lambda, V, Y):
+	
+	# ridge regression coefficients can be calculated as:
+	# V * S_Lambda * U.T * Y_train
+	# this is most efficiently computed from right to left
+	# due to how numpy does SVD we actually need to use V.T rather than V
+	ridge_coeffs = np.matmul(V.T, np.matmul(S_Lambda, np.reshape(np.matmul(U.T, Y), (-1, 1))))
+	return(ridge_coeffs)
 
-# generate feature matrix Phi
-poly = preprocessing.PolynomialFeatures(2)
-Phi = poly.fit_transform(X)
+def ScaleRidgeCoeffs(trainPhi, ridge_coeffs):
 
-# delete first column of Phi (which is all 1's)
-Phi = np.delete(Phi, 0, 1)
+	# compute L2 norms of columns of trainPhi
+	norm = np.reshape(np.sqrt(np.sum(pow(trainPhi, 2), axis = 0)), (-1,1))
 
-# segregate into training and test sets
+	# divide ridge coefficients by norm
+	scaled_ridge_coeffs = ridge_coeffs / norm
 
-# train
-trainPhi = GenerateTrain(Phi, 4)
-trainY = GenerateTrain(Y, 4)
+	return(scaled_ridge_coeffs)
 
-# test
-testPhi = GenerateTest(Phi, 4)
-testY = GenerateTest(Y, 4)
+def ScaledRidgeIntercept(trainY, scaled_ridge_coeffs, trainPhi):
 
-# center and scale training X and Y
-trainPhi = Scale(Center(trainPhi))
-trainY = Center(trainY)
+	# calculate mean of Y
+	y_bar = np.mean(trainY, axis=0)
 
-# list lambdas
-lambdas = list(np.arange(-13, 9.5, 0.5))
+	# calculate column-wise means of Phi
+	Phi_bar = np.reshape(np.mean(trainPhi, axis = 0), (-1,1))
 
-# take SVD of testPhi
-U, S, V = np.linalg.svd(trainPhi, full_matrices = False)
+	# multiply scaled ridge coefficient j with Phi mean j
+	# and then sum
+	w0_scaled = y_bar - np.sum(Phi_bar * scaled_ridge_coeffs, axis = 0)
 
-# compute S_Lambda
-S_Lambda = ComputeS_Lambda(S, 1.0)
+	return(w0_scaled)
 
-# ridge regression coefficients can be calculated as:
-# V * S_Lambda * U.T * Y_train
-# this is most efficiently computed from right to left
+def RidgeErrors(testY, testPhi, w0_scaled, scaled_ridge_coeffs):
+	
+	n_test = testPhi.shape[0]
 
-# U.t * trainY
-ridge_coeffs = np.matmul(V.T, np.matmul(S_Lambda, np.reshape(np.matmul(U.T, trainY), (-1, 1))))
-print(ridge_coeffs)
+	testY = np.reshape(testY, (-1,1))
 
-# compare to differently computed
-ridge_skl = linear_model.Ridge(alpha=1.0, fit_intercept = False)
-fit = ridge_skl.fit(trainPhi, trainY)
-print(fit.coef_)
+	ones = np.reshape(np.ones(n_test), (-1,1))
+	
+	foo = np.reshape(np.matmul(ones, w0_scaled), (-1,1))
+
+	bar = np.matmul(testPhi, scaled_ridge_coeffs)
+	
+	fizz = testY - foo - bar
+
+	buzz = np.sum(pow(foo, 2), axis = 0)
+	
+	out = (1 / n_test) * buzz
+
+	return(out)
+
+def RunRidgeAnalysis():
+	
+	# read data
+	X = np.genfromtxt('hw3_X.csv', delimiter = ',')
+	Y = np.genfromtxt('hw3_Y.csv', delimiter = ',')
+	
+	# generate feature matrix Phi
+	poly = preprocessing.PolynomialFeatures(2)
+	Phi = poly.fit_transform(X)
+	
+	# delete first column of Phi (which is all 1's)
+	Phi = np.delete(Phi, 0, 1)
+	
+	# segregate into training and test sets
+	
+	# training set
+	trainPhi = GenerateTrain(Phi, 4)
+	trainY = GenerateTrain(Y, 4)
+	
+	# test set
+	testPhi = GenerateTest(Phi, 4)
+	testY = GenerateTest(Y, 4)
+	
+	# center and scale training sets
+	trainPhi_scaled_centered = Scale(Center(trainPhi))
+	trainY_centered = Center(trainY)
+	
+	# take SVD 
+	U, S, V = np.linalg.svd(trainPhi_scaled_centered, full_matrices = False)
+
+	# generate different regularization parameters for ridge regression
+	alst = list(np.arange(-13, 9.5, 0.5))
+	lambdas = []
+	for i in range(0, len(alst)):
+		lambdas.append(pow(2, alst[i]))
+		print(lambdas)
+
+	print("Lambda",",", "error", sep='')
+
+	# for every tested regularization parameter...
+	for Lambda in lambdas:
+
+		# compute S_Lambda
+		S_Lambda = ComputeS_Lambda(S, Lambda)
+		
+		# calculate ridge coeffs
+		w = RidgeRegression(U, S_Lambda, V, trainY_centered)
+		
+		# re-scale ridge coeffs
+		w_scaled = ScaleRidgeCoeffs(trainPhi, w)
+		
+		# calculate w0_scaled
+		w0_scaled = ScaledRidgeIntercept(trainY, w_scaled, trainPhi)
+		
+		# calculate error
+		ridge_error = RidgeErrors(testY, testPhi, w0_scaled, w_scaled)
+		print(Lambda, ",", ridge_error[0], sep='')
+
+RunRidgeAnalysis()
+
+def RunLassoAnalysis():
+
+	# read data
+	X = np.genfromtxt('hw3_X.csv', delimiter = ',')
+	Y = np.genfromtxt('hw3_Y.csv', delimiter = ',')
+	
+	# generate feature matrix Phi
+	poly = preprocessing.PolynomialFeatures(2)
+
+	# segregate into training and test sets
+	
+	# training set
+	trainPhi = GenerateTrain(Phi, 4)
+	trainY = GenerateTrain(Y, 4)
+	
+	# test set
+	testPhi = GenerateTest(Phi, 4)
+	testY = GenerateTest(Y, 4)
+
+	# generate list of regularization parameters to try
+	lambdas = list(np.sqrt(log(3080)/6000) * np.arange(-13, 1.5, 0.5))
+
+	lasso = linear_model.Lasso(alpha=1.0)
+
+	fit = lasso.fit(trainPhi, trainY)
