@@ -1,8 +1,14 @@
+'''
+Tom Wallace <twalla11@masonlive.gmu.edu>
+STAT 672
+Spring 2017
+HW #3
+'''
+
 import numpy as np
 from sklearn import preprocessing
 from sklearn import linear_model
 
-# function to create test set consisting of every i'th observation
 def GenerateTest(a, i):
 
 	# get number of rows in a
@@ -13,7 +19,6 @@ def GenerateTest(a, i):
 
 	return(train)
 
-# function to create train set consisting of every observation not divisible by i
 def GenerateTrain(a, i):
 
 	# get number of rows in a
@@ -78,17 +83,17 @@ def RidgeRegression(U, S_Lambda, V, Y):
 	ridge_coeffs = np.matmul(V.T, np.matmul(S_Lambda, np.reshape(np.matmul(U.T, Y), (-1, 1))))
 	return(ridge_coeffs)
 
-def ScaleRidgeCoeffs(trainPhi, ridge_coeffs):
+def ScaleCoeffs(trainPhi, coeffs):
 
 	# compute L2 norms of columns of trainPhi
 	norm = np.reshape(np.sqrt(np.sum(pow(trainPhi, 2), axis = 0)), (-1,1))
 
-	# divide ridge coefficients by norm
-	scaled_ridge_coeffs = ridge_coeffs / norm
+	# divide coefficients by norm
+	scaled_coeffs = coeffs / norm
 
-	return(scaled_ridge_coeffs)
+	return(scaled_coeffs)
 
-def ScaledRidgeIntercept(trainY, scaled_ridge_coeffs, trainPhi):
+def ScaledIntercept(trainY, scaled_coeffs, trainPhi):
 
 	# calculate mean of Y
 	y_bar = np.mean(trainY, axis=0)
@@ -96,13 +101,13 @@ def ScaledRidgeIntercept(trainY, scaled_ridge_coeffs, trainPhi):
 	# calculate column-wise means of Phi
 	Phi_bar = np.reshape(np.mean(trainPhi, axis = 0), (-1,1))
 
-	# multiply scaled ridge coefficient j with Phi mean j
+	# multiply scaled coefficient j with Phi mean j
 	# and then sum
-	w0_scaled = y_bar - np.sum(Phi_bar * scaled_ridge_coeffs, axis = 0)
+	w0_scaled = y_bar - np.sum(Phi_bar * scaled_coeffs, axis = 0)
 
 	return(w0_scaled)
 
-def RidgeErrors(testY, testPhi, w0_scaled, scaled_ridge_coeffs):
+def Errors(testY, testPhi, w0_scaled, scaled_coeffs):
 	
 	n_test = testPhi.shape[0]
 
@@ -112,7 +117,7 @@ def RidgeErrors(testY, testPhi, w0_scaled, scaled_ridge_coeffs):
 	
 	foo = np.reshape(np.matmul(ones, w0_scaled), (-1,1))
 
-	bar = np.matmul(testPhi, scaled_ridge_coeffs)
+	bar = np.matmul(testPhi, scaled_coeffs)
 	
 	fizz = testY - foo - bar
 
@@ -157,9 +162,7 @@ def RunRidgeAnalysis():
 	lambdas = []
 	for i in range(0, len(alst)):
 		lambdas.append(pow(2, alst[i]))
-		print(lambdas)
-
-	print("Lambda",",", "error", sep='')
+	
 
 	# for every tested regularization parameter...
 	for Lambda in lambdas:
@@ -171,16 +174,16 @@ def RunRidgeAnalysis():
 		w = RidgeRegression(U, S_Lambda, V, trainY_centered)
 		
 		# re-scale ridge coeffs
-		w_scaled = ScaleRidgeCoeffs(trainPhi, w)
+		w_scaled = ScaleCoeffs(trainPhi, w)
 		
 		# calculate w0_scaled
-		w0_scaled = ScaledRidgeIntercept(trainY, w_scaled, trainPhi)
+		w0_scaled = ScaledIntercept(trainY, w_scaled, trainPhi)
 		
 		# calculate error
-		ridge_error = RidgeErrors(testY, testPhi, w0_scaled, w_scaled)
-		print(Lambda, ",", ridge_error[0], sep='')
+		ridge_error = Errors(testY, testPhi, w0_scaled, w_scaled)
 
-RunRidgeAnalysis()
+		# output results
+		print("ridge,", Lambda, ",", ridge_error[0], sep='')
 
 def RunLassoAnalysis():
 
@@ -190,6 +193,10 @@ def RunLassoAnalysis():
 	
 	# generate feature matrix Phi
 	poly = preprocessing.PolynomialFeatures(2)
+	Phi = poly.fit_transform(X)
+	
+	# delete first column of Phi (which is all 1's)
+	Phi = np.delete(Phi, 0, 1)
 
 	# segregate into training and test sets
 	
@@ -201,9 +208,41 @@ def RunLassoAnalysis():
 	testPhi = GenerateTest(Phi, 4)
 	testY = GenerateTest(Y, 4)
 
+	# center and scale training sets
+	trainPhi_scaled_centered = Scale(Center(trainPhi))
+	trainY_centered = Center(trainY)
+
 	# generate list of regularization parameters to try
-	lambdas = list(np.sqrt(log(3080)/6000) * np.arange(-13, 1.5, 0.5))
 
-	lasso = linear_model.Lasso(alpha=1.0)
+	alst = list(np.arange(-13, 9.5, 0.5))
+	lambdas = []
+	for i in range(0, len(alst)):
+		lambdas.append(np.sqrt(np.log(3080)/6000) * pow(2, alst[i]))
+	lambdas.reverse() #decreasing order
 
-	fit = lasso.fit(trainPhi, trainY)
+	# for every tested regularization parameter...
+	for Lambda in lambdas:
+		
+		# fit lasso model with that regularization parameter
+		# note warm start
+		# note not fitted with intercept (since already centered and scaled)
+		lasso = linear_model.Lasso(alpha=Lambda, warm_start = True, fit_intercept = False)
+		fit = lasso.fit(trainPhi_scaled_centered, trainY_centered)
+
+		# get coefficients
+		w = np.reshape(fit.coef_, (-1,1))
+
+		# re-scale coeffs
+		w_scaled = ScaleCoeffs(trainPhi, w)
+		
+		# calculate w0_scaled
+		w0_scaled = ScaledIntercept(trainY, w_scaled, trainPhi)
+		
+		# calculate error
+		lasso_error = Errors(testY, testPhi, w0_scaled, w_scaled)
+
+		# output results
+		print("lasso,", Lambda, ",", lasso_error[0], sep='')
+
+RunRidgeAnalysis()
+RunLassoAnalysis()
