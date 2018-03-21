@@ -30,7 +30,7 @@
 	Many statistical procedures involve minimizing or maximizing some function 
 	applied to data \\~\\
 
-	In \textbf{parametric} statistics, we often make assumptions that make this optimization ``nice'':
+	In \textbf{parametric} statistics, we often make assumptions that make this optimization ``nice''
 	\begin{itemize}
 		\item \small Example: in OLS, we do not need to try
 			different values
@@ -57,7 +57,7 @@
 
 \begin{frame}
 	\frametitle{Other times, optimization is not so easy}
-	Suppose that we have a typical supervised classification problem:
+	Suppose that we have a typical supervised classification problem
 	\begin{itemize}
 		\item \small Non-parametric: no assumptions about distribution of data
 		\item Feature vector $\mathbf{X}_i$, label $Y_i$
@@ -88,7 +88,7 @@
 	$\mathbf{w}_{t+1} = \mathbf{w}_t - \gamma \frac{1}{n}\sum_{i=1}^n
 	\nabla_w L(f_w(\mathbf{X}_i), y_i)$ \\~\\
 
-	Stop if $\mathbf{w}_t - \ldots \leq \epsilon$ \\~\\
+	Stop if gradient $\leq \epsilon$ \\~\\
 
 	Step size $\gamma$ can vary over time \\~\\
 
