@@ -80,49 +80,41 @@ $$
 There are an inefficient method and an efficient method of re-calculating ridge
 regression coefficients for a new regularization parameter $\lambda$.
 
-In the inefficient method, we redo the entire singular value decomposition every
-time we update $\lambda$. SVD has a computational complexity on the order of
+In the inefficient method, we recompute the SVD every
+time we update $\lambda$. SVD has complexity on the order of
 $O(nd^2)$ (with $n$ corresponding to the number of rows of the feature matrix and 
-$d$ corresponding to the number of columns, i.e. the dimensionality of the
-data). We then multiply $\mathbf{VD}_\lambda \mathbf{U}^T\mathbf{y}$.
+$d$ corresponding to the number of columns). We then multiply $\mathbf{VD}_\lambda \mathbf{U}^T\mathbf{y}$.
 A matrix-matrix product $C=AB$, where $A \in \mathbb{R}^{m \times n}$ and $B \in
-\mathbb{R}^{n \times p}$, costs $O(2mnp)$ flops. In our case, $\mathbf{U}^T \in
+\mathbb{R}^{n \times p}$, costs $2mnp$ flops. In our case, $\mathbf{U}^T \in
 \mathbb{R}^{d \times n}$ and $\mathbf{Y} \in \mathbb{R}^{n \times 1}$, and so
-multiplying the two costs $O(2 \times n \times d \times 1) = O(2nd)$ flops and results
-in a $d \times 1$ matrix. Multiplying $\mathbf{D}_\lambda \in \mathbb{R}^{d
-\times d}$ and this $d \times 1$ matrix costs $O(2d^2)$ flops (assuming we do not take advantage of the
-diagonal structure of $\mathbf{D}_\lambda$) and results in a $d \times 1$ matrix. 
-Multiplying $\mathbf{V} \in \mathbb{R}^{d \times d}$ by this $d \times 1$ matrix costs 
-$O(2d^2)$ flops. Adding together all these steps, we have $O(nd^2 + 2nd + 2d^2 +
-2d^2)$. Dropping all constant coefficients and only considering the
+multiplying the two costs $2 \times n \times d \times 1 = 2nd$ flops and results
+in a $d \times 1$ vector. Multiplying $\mathbf{D}_\lambda \in \mathbb{R}^{d
+\times d}$ and this $d \times 1$ vector costs $d$ flops (assuming we take advantage of the
+diagonal structure of $\mathbf{D}_\lambda$) and results in a $d \times 1$ vector. 
+Multiplying $\mathbf{V} \in \mathbb{R}^{d \times d}$ by this $d \times 1$ vector costs 
+$2d^2$ flops. Adding together all these steps, we have $nd^2 + 2nd + d +
+2d^2$ flops. Dropping all constant coefficients and only considering the
 highest-order polynomial, we conclude that the inefficient method costs
 $O(nd^2)$ flops.
 
 A more efficient method notes that $\mathbf{D}_\lambda$ is the only part of 
 $\mathbf{VD}_\lambda \mathbf{U}^T\mathbf{y}$ that depends on $\lambda$
-($\mathbf{U}$ and $\mathbf{V}$ depend solely on the feature matrix $\mathbf{X}$, and
-$\mathbf{y}$  depends only on itself) and so we do not not need to recompute the
+and so we do not need to recompute the
 SVD for every new value of $\lambda$. Assume that we have pre-calculated and
 cached $\mathbf{U}^T\mathbf{y}$ and $\mathbf{V}$. Modifying the $d$ non-zero
-values of $\mathbf{D}_\lambda$ to reflect our new value of $\lambda$ costs $O(d)$ flops. 
+values of $\mathbf{D}_\lambda$ to reflect our new value of $\lambda$ costs
+$2d$ flops ($d$ flops for addition of the new $\lambda$ in the denominator, 
+and $d$ flops to
+divide the numerator by the new denominator). 
 Computing new regression coefficients requires multiplying the new $\mathbf{D}_\lambda$ and
-$\mathbf{U}^T\mathbf{y}$, which costs $O(2d^2)$ flops, and then multiplying that
-result by $\mathbf{V}$, which also costs $O(2d^2)$ flops. Adding together these
-two steps, we have $O(d + 2d^2 + 2d^2)$. Dropping all constant coefficients and
+$\mathbf{U}^T\mathbf{y}$, which costs $2d^2$ flops, and then multiplying that
+result by $\mathbf{V}$, which also costs $2d^2$ flops. Adding together these
+two steps, we have $2d + 2d^2 + 2d^2$ flops. Dropping all constant coefficients and
 only considering the highest-order polynomial, we conclude that the efficient method
 costs $O(d^2)$ flops. 
 
-\begin{centering}
-\begin{table}[h!]
-	\begin{tabular}{|l|l|}
-		\hline
-		& \textbf{Complexity} \\
-		\textbf{Inefficient method} & $O(nd^2)$ \\
-		\textbf{Efficient method} & $O(d^2)$ \\
-		\hline
-	\end{tabular}
-\end{table}
-\end{centering}
+In practical terms, since we are fitting regression coefficients on a training
+dataset with $n=6000$, the efficient method is 6,000 times faster.
 
 \section*{Results}
 
@@ -132,6 +124,9 @@ regularization parameter value of 0.00390625 achieves the lowest test error
 (2.81855); for lasso regression, a regularization parameter of $4.46e^{-0.6}$
 (i.e. the tested value closest to 0) achieves the lowest test error (2.85948).
 The ridge method achieves the better minimum test error. 
+
+In the below graph, I have omitted some tested values of $\lambda$ to make
+things more visually clear.
 
 \includegraphics[scale=0.5]{foo}
 

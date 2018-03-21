@@ -4,11 +4,11 @@ STAT 672
 Spring 2017
 HW #3
 '''
-
 import numpy as np
 from sklearn import preprocessing
 from sklearn import linear_model
 
+# Function to generate test set consisting of every i'th observation
 def GenerateTest(a, i):
 
 	# get number of rows in a
@@ -19,6 +19,7 @@ def GenerateTest(a, i):
 
 	return(train)
 
+# Function to generate training set consisting of every non-i'th observation
 def GenerateTrain(a, i):
 
 	# get number of rows in a
@@ -37,6 +38,7 @@ def GenerateTrain(a, i):
 
 	return(train)
 
+# Function to center matrix by subtracting column means
 def Center(a):
 
 	# compute column means
@@ -47,6 +49,7 @@ def Center(a):
 
 	return(out)
 
+# Function to scale matrix by dividing by column norms
 def Scale(a):
 
 	# compute L2 norms of columns of matrix
@@ -57,6 +60,10 @@ def Scale(a):
 	
 	return(out)
 
+# Function to compute S_Lambda
+# Where S refers to USV' resulting from a SVD
+# And Lambda refers to the regularization parameter of ridge regression
+# S_Lambda is a diagonal matrix with non-zero values d_i / d_ii^2 + Lambda
 def ComputeS_Lambda(S, Lambda):
 
 	# number of coefficients 
@@ -74,6 +81,7 @@ def ComputeS_Lambda(S, Lambda):
 
 	return(S_Lambda)
 
+# Function to conduct ridge regression via SVD
 def RidgeRegression(U, S_Lambda, V, Y):
 	
 	# ridge regression coefficients can be calculated as:
@@ -83,6 +91,7 @@ def RidgeRegression(U, S_Lambda, V, Y):
 	ridge_coeffs = np.matmul(V.T, np.matmul(S_Lambda, np.reshape(np.matmul(U.T, Y), (-1, 1))))
 	return(ridge_coeffs)
 
+# Function to re-scale coefficients calculated on scaled data
 def ScaleCoeffs(trainPhi, coeffs):
 
 	# compute L2 norms of columns of trainPhi
@@ -93,6 +102,7 @@ def ScaleCoeffs(trainPhi, coeffs):
 
 	return(scaled_coeffs)
 
+# Calculate re-scaled intercept 
 def ScaledIntercept(trainY, scaled_coeffs, trainPhi):
 
 	# calculate mean of Y
@@ -107,6 +117,7 @@ def ScaledIntercept(trainY, scaled_coeffs, trainPhi):
 
 	return(w0_scaled)
 
+# Calculate test errors
 def Errors(testY, testPhi, w0_scaled, scaled_coeffs):
 	
 	n_test = testPhi.shape[0]
@@ -127,6 +138,7 @@ def Errors(testY, testPhi, w0_scaled, scaled_coeffs):
 
 	return(out)
 
+# Read data and conduct ridge regression analysis
 def RunRidgeAnalysis():
 	
 	# read data
@@ -185,6 +197,7 @@ def RunRidgeAnalysis():
 		# output results
 		print("ridge,", Lambda, ",", ridge_error[0], sep='')
 
+# Read data and conduct lasso regression analysis
 def RunLassoAnalysis():
 
 	# read data
@@ -244,5 +257,6 @@ def RunLassoAnalysis():
 		# output results
 		print("lasso,", Lambda, ",", lasso_error[0], sep='')
 
+# Code execution
 RunRidgeAnalysis()
 RunLassoAnalysis()
