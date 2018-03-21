@@ -34,13 +34,13 @@ $$
 \mathbf{VD}^T\mathbf{U}^T \mathbf{y}
 $$
 
-We know that $\mathbf{U}^T\mathbf{U}=\mathbf{I}$ and $\mathbf{D}^T\mathbf{D}=\mathbf{D}^2$ and so can
-simplify this to:
+$\mathbf{U}$ is orthogonal ($\mathbf{U}^T\mathbf{U}=\mathbf{I}$) and
+$\mathbf{D}$ is diagonal ($\mathbf{D}^T = \mathbf{D}$):
 $$
 = (\mathbf{VD}^2\mathbf{V}^T + \lambda \mathbf{I})^{-1} \mathbf{VDU}^T\mathbf{y}
 $$
 
-We substitute in $\mathbf{VV}^T$ for $\mathbf{I}$:
+Because $\mathbf{V}$ is orthonormal, i.e. $\mathbf{V}^T = \mathbf{V}^{-1}$, we substitute in $\mathbf{VV}^T$ for $\mathbf{I}$:
 
 $$
 = (\mathbf{VD}^2\mathbf{V}^T + \lambda \mathbf{VV}^T)^{-1} \mathbf{VDU}^T\mathbf{y}
@@ -51,7 +51,8 @@ $$
 = \mathbf{V}(\mathbf{D}^2 + \lambda)^{-1}\mathbf{V}^T \mathbf{VDU}^T\mathbf{y}
 $$
 
-And make use of the fact that $\mathbf{V}$ is orthonormal:
+And again make use of the fact that $\mathbf{V}$ is orthonormal, this time to
+cancel some terms:
 $$
 = \mathbf{V}(\mathbf{D}^2 + \lambda)^{-1}\mathbf{DU}^T\mathbf{y}
 $$
@@ -83,7 +84,10 @@ regression coefficients for a new regularization parameter $\lambda$.
 In the inefficient method, we recompute the SVD every
 time we update $\lambda$. SVD has complexity on the order of
 $O(nd^2)$ (with $n$ corresponding to the number of rows of the feature matrix and 
-$d$ corresponding to the number of columns). We then multiply $\mathbf{VD}_\lambda \mathbf{U}^T\mathbf{y}$.
+$d$ corresponding to the number of columns). We then multiply
+$\mathbf{VD}_\lambda \mathbf{U}^T\mathbf{y}$. We exploit the associative
+property of matrices and proceed right to left for maximum efficiency, 
+i.e. $\mathbf{V}(\mathbf{D}_\lambda(\mathbf{U}^T\mathbf{y}))$.
 A matrix-matrix product $C=AB$, where $A \in \mathbb{R}^{m \times n}$ and $B \in
 \mathbb{R}^{n \times p}$, costs $2mnp$ flops. In our case, $\mathbf{U}^T \in
 \mathbb{R}^{d \times n}$ and $\mathbf{Y} \in \mathbb{R}^{n \times 1}$, and so

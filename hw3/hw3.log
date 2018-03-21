@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.24)  21 MAR 2018 11:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.24)  21 MAR 2018 12:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -278,13 +278,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <foo.png, id=18, 803.0pt x 501.875pt>
 File: foo.png Graphic file (type png)
 <use foo.png>
-Package pdftex.def Info: foo.png  used on input line 131.
+Package pdftex.def Info: foo.png  used on input line 135.
 (pdftex.def)             Requested size: 401.49902pt x 250.93687pt.
  [2 <./foo.png (PNG copy)>] (./hw3.aux) ) 
 Here is how much of TeX's memory you used:
  2920 strings out of 494427
  39210 string characters out of 6167361
- 102200 words of memory out of 5000000
+ 103200 words of memory out of 5000000
  6217 multiletter control sequences out of 15000+600000
  16414 words of font info for 61 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
@@ -304,7 +304,7 @@ c/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/a
 msfonts/symbols/msam10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
 ic/amsfonts/symbols/msbm10.pfb>
-Output written on hw3.pdf (2 pages, 153404 bytes).
+Output written on hw3.pdf (2 pages, 153568 bytes).
 PDF statistics:
  68 PDF objects out of 1000 (max. 8388607)
  48 compressed objects within 1 object stream
