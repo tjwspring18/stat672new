@@ -21,11 +21,12 @@
   \datalist[entry]{nty/global//global/global}
     \entry{bottou2010large}{incollection}{}
       \name{author}{1}{}{%
-        {{hash=4437d12f87aa10b0c95e9e587862f7ab}{%
+        {{uniquename=0,uniquepart=base,hash=4437d12f87aa10b0c95e9e587862f7ab}{%
            family={Bottou},
            familyi={B\bibinitperiod},
            given={L{\'{e}}on},
-           giveni={L\bibinitperiod}}}%
+           giveni={L\bibinitperiod},
+           givenun=0}}%
       }
       \list{publisher}{1}{%
         {Springer}%
@@ -38,6 +39,8 @@
       \strng{authorfullhash}{4437d12f87aa10b0c95e9e587862f7ab}
       \field{sortinit}{B}
       \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Proceedings of COMPSTAT'2010}
@@ -48,11 +51,12 @@
     \endentry
     \entry{bottou2012stochastic}{incollection}{}
       \name{author}{1}{}{%
-        {{hash=4437d12f87aa10b0c95e9e587862f7ab}{%
+        {{uniquename=0,uniquepart=base,hash=4437d12f87aa10b0c95e9e587862f7ab}{%
            family={Bottou},
            familyi={B\bibinitperiod},
            given={L{\'{e}}on},
-           giveni={L\bibinitperiod}}}%
+           giveni={L\bibinitperiod},
+           givenun=0}}%
       }
       \list{publisher}{1}{%
         {Springer}%
@@ -65,6 +69,8 @@
       \strng{authorfullhash}{4437d12f87aa10b0c95e9e587862f7ab}
       \field{sortinit}{B}
       \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Neural networks: Tricks of the trade}
@@ -75,16 +81,18 @@
     \endentry
     \entry{boyd2004convex}{book}{}
       \name{author}{2}{}{%
-        {{hash=ec94d94cc487dd71939a90cbeaaf47d0}{%
+        {{uniquename=0,uniquepart=base,hash=ec94d94cc487dd71939a90cbeaaf47d0}{%
            family={Boyd},
            familyi={B\bibinitperiod},
            given={Stephen},
-           giveni={S\bibinitperiod}}}%
-        {{hash=2608d599a0bc2a784c301329a8da5f7b}{%
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=2608d599a0bc2a784c301329a8da5f7b}{%
            family={Vandenberghe},
            familyi={V\bibinitperiod},
            given={Lieven},
-           giveni={L\bibinitperiod}}}%
+           giveni={L\bibinitperiod},
+           givenun=0}}%
       }
       \list{publisher}{1}{%
         {Cambridge university press}%
@@ -97,6 +105,8 @@
       \strng{authorfullhash}{436abed3bce8d1b1d30640d4e5ff3d58}
       \field{sortinit}{B}
       \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Convex optimization}
@@ -104,26 +114,30 @@
     \endentry
     \entry{dal2015calibrating}{inproceedings}{}
       \name{author}{4}{}{%
-        {{hash=97c4ef92360a3c272fda71fa1ea092ca}{%
+        {{uniquename=0,uniquepart=base,hash=97c4ef92360a3c272fda71fa1ea092ca}{%
            family={Dal\bibnamedelima Pozzolo},
            familyi={D\bibinitperiod\bibinitdelim P\bibinitperiod},
            given={Andrea},
-           giveni={A\bibinitperiod}}}%
-        {{hash=767953319ebde76ca21aed2bb2b88b7a}{%
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=767953319ebde76ca21aed2bb2b88b7a}{%
            family={Caelen},
            familyi={C\bibinitperiod},
            given={Olivier},
-           giveni={O\bibinitperiod}}}%
-        {{hash=4966bdaabc544a54591550f8c357db81}{%
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=4966bdaabc544a54591550f8c357db81}{%
            family={Johnson},
            familyi={J\bibinitperiod},
            given={Reid\bibnamedelima A},
-           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
-        {{hash=3bb195d6ea6db0c1df418e2f92f319fc}{%
+           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3bb195d6ea6db0c1df418e2f92f319fc}{%
            family={Bontempi},
            familyi={B\bibinitperiod},
            given={Gianluca},
-           giveni={G\bibinitperiod}}}%
+           giveni={G\bibinitperiod},
+           givenun=0}}%
       }
       \list{organization}{1}{%
         {IEEE}%
@@ -136,6 +150,8 @@
       \strng{authorfullhash}{691d836ca739dd71ea526f2148b8a87b}
       \field{sortinit}{D}
       \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Computational Intelligence, 2015 IEEE Symposium Series on}
@@ -144,28 +160,82 @@
       \field{pages}{159\bibrangedash 166}
       \range{pages}{8}
     \endentry
+    \entry{shalev2011pegasos}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=a6c5827676b0a2058e5b904c3dd7f878}{%
+           family={Shalev-Shwartz},
+           familyi={S\bibinithyphendelim S\bibinitperiod},
+           given={Shai},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=300d4990e626d975e0c28630444f63c3}{%
+           family={Singer},
+           familyi={S\bibinitperiod},
+           given={Yoram},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=4a4fc057d8331655775a21a8994f3339}{%
+           family={Srebro},
+           familyi={S\bibinitperiod},
+           given={Nathan},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=613db2338508afa613a024f7a8ebcddf}{%
+           family={Cotter},
+           familyi={C\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{b225aee68ba47af6f1226cfd598b2105}
+      \strng{fullhash}{5e602e676f671c5d3dbcb1b8f6bc0d9c}
+      \strng{bibnamehash}{b225aee68ba47af6f1226cfd598b2105}
+      \strng{authorbibnamehash}{b225aee68ba47af6f1226cfd598b2105}
+      \strng{authornamehash}{b225aee68ba47af6f1226cfd598b2105}
+      \strng{authorfullhash}{5e602e676f671c5d3dbcb1b8f6bc0d9c}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematical programming}
+      \field{number}{1}
+      \field{title}{Pegasos: Primal estimated sub-gradient solver for svm}
+      \field{volume}{127}
+      \field{year}{2011}
+      \field{pages}{3\bibrangedash 30}
+      \range{pages}{28}
+    \endentry
     \entry{zinkevich2010parallelized}{inproceedings}{}
       \name{author}{4}{}{%
-        {{hash=e62baba88c90cf5ccf8100e3cb79a506}{%
+        {{uniquename=0,uniquepart=base,hash=e62baba88c90cf5ccf8100e3cb79a506}{%
            family={Zinkevich},
            familyi={Z\bibinitperiod},
            given={Martin},
-           giveni={M\bibinitperiod}}}%
-        {{hash=8789dc477eefa49388f15e510b8424c4}{%
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=8789dc477eefa49388f15e510b8424c4}{%
            family={Weimer},
            familyi={W\bibinitperiod},
            given={Markus},
-           giveni={M\bibinitperiod}}}%
-        {{hash=09b19a7bef3ca63e5cf4af03d2b00ea0}{%
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=09b19a7bef3ca63e5cf4af03d2b00ea0}{%
            family={Li},
            familyi={L\bibinitperiod},
            given={Lihong},
-           giveni={L\bibinitperiod}}}%
-        {{hash=d958fd72cbc7963e7ed0e0fc2f97f282}{%
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=d958fd72cbc7963e7ed0e0fc2f97f282}{%
            family={Smola},
            familyi={S\bibinitperiod},
            given={Alex\bibnamedelima J},
-           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
       }
       \strng{namehash}{ff75f68134dbb88480edb2c660fdd164}
       \strng{fullhash}{1e87d6c707a181e68b1668fa46ef402e}
@@ -175,6 +245,8 @@
       \strng{authorfullhash}{1e87d6c707a181e68b1668fa46ef402e}
       \field{sortinit}{Z}
       \field{sortinithash}{156173bd08b075d7295bc3e0f4735a04}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{Advances in neural information processing systems}

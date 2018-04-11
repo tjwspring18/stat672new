@@ -66,7 +66,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>labeldateparts</bcf:key>
-      <bcf:value>0</bcf:value>
+      <bcf:value>1</bcf:value>
     </bcf:option>
     <bcf:option type="multivalued">
       <bcf:key>labeldatespec</bcf:key>
@@ -139,11 +139,11 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniquelist</bcf:key>
-      <bcf:value>0</bcf:value>
+      <bcf:value>1</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniquename</bcf:key>
-      <bcf:value>0</bcf:value>
+      <bcf:value>2</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniqueprimaryauthor</bcf:key>
@@ -1926,8 +1926,9 @@
     <bcf:citekey order="1">bottou2010large</bcf:citekey>
     <bcf:citekey order="2">bottou2012stochastic</bcf:citekey>
     <bcf:citekey order="3">boyd2004convex</bcf:citekey>
-    <bcf:citekey order="4">zinkevich2010parallelized</bcf:citekey>
-    <bcf:citekey order="5">dal2015calibrating</bcf:citekey>
+    <bcf:citekey order="4">dal2015calibrating</bcf:citekey>
+    <bcf:citekey order="5">shalev2011pegasos</bcf:citekey>
+    <bcf:citekey order="6">zinkevich2010parallelized</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

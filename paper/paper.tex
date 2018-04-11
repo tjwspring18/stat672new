@@ -6,7 +6,7 @@
 
 \DeclareMathOperator*{\argmax}{argmax}
 
-\usepackage{biblatex}
+\usepackage[citestyle=authoryear]{biblatex}
 \addbibresource{paper.bib}
 
 \author{Tom Wallace}
@@ -22,12 +22,12 @@
 \subsection{Organization}
 
 This paper is divided into four sections. The remainder of this
-\textbf{Introduction} section gives motivation for stochastic gradient descent (SGD):
-why do we care about it? The \textbf{Method and Theory} section presents the
+\textbf{Introduction} section gives intuitive motivation for stochastic gradient
+descent (SGD). The \textbf{Method and Theory} section more rigorously presents the
 mathematics of SGD and some of its notable properties. The
-\textbf{Applications} highlights the real-world settings and uses of SGD,
+\textbf{Applications} sections highlights the real-world settings and uses of SGD,
 including a case study data analysis. The \textbf{Conclusion} section summarizes
-overall findings and notes some areas for further research in SGD.
+overall findings.
 
 \subsection{Motivation}
 
@@ -82,7 +82,7 @@ $\bm{J}$ is the Jacobian (the
 first derivative of the log-likelihood function $l$ with respect to each $w_j$)
 and $\bm{H}$ is the Hessian (the second derivative of $l$ with respect to $w_j,
 w_{j'}$). The practicality of Newton-Raphson thus depends on whether it is convenient to
-find $\bm{J}$ and $\bm{H}$. This is true for logistic regression
+find $\bm{J}$ and $\bm{H}$. It is convenient for logistic regression
 because parametric and independent-and-identically-distributed (IID) assumptions
 mean $l$ is a simple sum of the log probability distribution
 function (PDF, in this case binomial) for each observation. We ``know'' (assume)
@@ -91,29 +91,18 @@ confident that the second derivative exists and is not too onerous to calculate.
 Newton-Raphson will not be practical, if the Jacobian or Hessian of the function we are trying to
 maximize or minimize (perhaps not $l$) are non-existent or cumbersome. 
 
-Non-parametric modeling often is such a case. MAYBE REVISE THIS. Consider a typical supervised
-classification set-up: feature matrix $\bm{X} \in \mathbb{R}^{n \times D}$ and
-labels $\bm{Y} \in \{-1, 1\}$, with no assumptions regarding distribution. The goal is to pick a function
-$f_w(\bm{X})$ from hypothesis class $\mathcal{F}$ that assigns weights to
-features so as to predict label. The optimal weights are those that minimize empirical risk
-according to some loss function $L$ that characterizes how well (or not)
-$f_w(\bm{X})$ classifies in terms of discrepancy between $f_w(\bm{X}_i)$ and
-$Y_i$ for a particular $i$.
 
-$$
-\hat{\bm{w}} = \argmax_{\bm{w}} \frac{1}{n} \sum_{i=1}^n L(f_w(\bm{X}_i), Y_i)
-$$
-
-Our lack of parametric assumptions means we do not have a closed-form solution a
-la OLS. We also have no guarantees that the loss function $L$ has existent or easy-to-find derivatives, 
-and hence no guarantee that Newton-Raphson is practical. 
-
-The need to conduct optimization in such non-parametric settings is a chief
-motivation for gradient descent (GD), of which SGD is a variant. GD
-does not require any parametric assumptions. It also only requires finding the
-first derivative (Jacobian) of the function. For these reasons, (S)GD is
- well-suited for non-parametric settings, included supervised and
-unsupervised statistical learning tasks.
+The need to conduct optimization in non-parametric settings is a chief
+motivation for gradient descent (GD), of which SGD is a variant. In
+non-parametric settings---most notably supervised and unsupervised statistical
+learning, in which we again seek to find optimal $\hat{\bm{w}}$ to relate input
+variables to output variables for the purposes of classification or regression---there 
+typically is no closed form solution for $\hat{\bm{w}}$. It
+also may not be convenient to find and evaluate the Hessian, making
+Newton-Raphson undesirable. SGD does not require any parametric assumptions. 
+In its most basic form, SGD only requires finding the gradient (though some extensions
+do need the Hessian or an approximation to it). 
+SGD thus is well-suited for non-parametric settings.
 
 \subsubsection{Computational complexity}
 
@@ -123,7 +112,7 @@ requires an excessive amount of time to do so. ``Plain'' or
 ``batch'' GD requires evaluating the gradient for every single observation,
 every single iteration, until the algorithm converges. For example, for a
 dataset of $n=10^6$ that required 25 iterations to converge, batch GD would require 
-evaluating the gradient $25 \times 10^6$ times. This linear scaling with
+evaluating the gradient $25 \times 10^6$ times. This scaling with
 $n$ can cause untenably long computation time.
 
 SGD alleviates these computational difficulties by requiring the gradient to be
@@ -131,28 +120,55 @@ evaluated for only a single randomly chosen observation per iteration. This
 approach means convergence is ``noisier'' and hence requires more iterations to
 converge, but each iteration is less complex to compute and so can be done
 faster. SGD thus scales much more favorably with $n$ than GD, and so is
-particularly useful for large-$n$ applications such as typical machine learning
-or big data tasks.
-
+particularly useful for large-$n$ applications such as machine learning
+and big data problems.
 
 \section{Method and Theory}
 
 \subsection{Setup and Notation}
 
-\subsection{Derivation}
+Consider a typical soft-margin support vector machine (SVM) problem.
+
+\subsection{Basic Form}
 
 \cite{bottou2010large}
 \cite{bottou2012stochastic}
 \cite{boyd2004convex}
-\cite{zinkevich2010parallelized}
 \cite{dal2015calibrating}
+
 \subsection{Key Properties}
+
+\subsection{Extensions}
+
+The basic SGD algorithm has been extended in different ways. The popularity of
+the algorithm disallows a comprehensive or detailed treatment of all
+development. This sub-section covers some of the more interesting developments.
+
+\subsubsection{Step Size (Learning Rate)}
+
+\cite{shalev2011pegasos}
+
+\subsubsection{Momentum}
+
+\subsubsection{Averaging}
+
+\subsubsection{Predictive Variance Reduction}
+
+\subsubsection{Parallelization}
+
+SGD is commonly used in large-$n$, computationally demanding applications. Thus,
+even though SGD is a computational improvement over batch GD, there has been
+interest in whether SGD can be made even faster by parallelizing it.
+\cite{zinkevich2010parallelized} present novel algorithms for doing so. The
+actual algorithms are strikingly simple; their proof is highly technical and
+omitted here.
+
+Consider the SVM problem posed in Section 2.
+
 
 \section{Applications}
 
 \subsection{SGD and Statistical Learning}
-
-\subsection{Case Study: }
 
 \section{Conclusion}
 

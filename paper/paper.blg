@@ -1,19 +1,19 @@
 [0] Config.pm:302> INFO - This is Biber 2.10
 [1] Config.pm:305> INFO - Logfile is 'paper.blg'
-[63] biber:313> INFO - === Tue Apr 10, 2018, 22:11:46
+[63] biber:313> INFO - === Wed Apr 11, 2018, 18:34:51
 [108] Biber.pm:371> INFO - Reading 'paper.bcf'
-[271] Biber.pm:857> INFO - Found 5 citekeys in bib section 0
+[271] Biber.pm:857> INFO - Found 6 citekeys in bib section 0
 [299] Biber.pm:3976> INFO - Processing section 0
-[321] Biber.pm:4136> INFO - Looking for bibtex format file 'paper.bib' for section 0
+[320] Biber.pm:4136> INFO - Looking for bibtex format file 'paper.bib' for section 0
 [321] bibtex.pm:1444> INFO - Reading ascii input as UTF-8
 [322] bibtex.pm:1490> INFO - LaTeX decoding ...
-[339] bibtex.pm:1306> INFO - Found BibTeX data source 'paper.bib'
-[423] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[423] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[423] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[423] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
-[435] bbl.pm:617> INFO - Writing 'paper.bbl' with encoding 'ascii'
-[440] Utils.pm:193> WARN - The entry 'bottou2010large' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[443] Utils.pm:193> WARN - The entry 'bottou2012stochastic' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[447] bbl.pm:720> INFO - Output to paper.bbl
-[447] Biber.pm:110> INFO - WARNINGS: 2
+[342] bibtex.pm:1306> INFO - Found BibTeX data source 'paper.bib'
+[445] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[445] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[445] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[445] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[460] bbl.pm:617> INFO - Writing 'paper.bbl' with encoding 'ascii'
+[466] Utils.pm:193> WARN - The entry 'bottou2010large' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[469] Utils.pm:193> WARN - The entry 'bottou2012stochastic' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[479] bbl.pm:720> INFO - Output to paper.bbl
+[479] Biber.pm:110> INFO - WARNINGS: 2
