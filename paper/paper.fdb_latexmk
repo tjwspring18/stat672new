@@ -1,12 +1,12 @@
 # Fdb version 3
-["biber paper"] 1523486089 "paper.bcf" "paper.bbl" "paper" 1523488283
+["biber paper"] 1523489462 "paper.bcf" "paper.bbl" "paper" 1523489467
   "ascii input as UTF-8" 0 -1 0 ""
-  "paper.bcf" 1523488283 88657 1aa74e17480835601c95c3ddc328ab3a ""
-  "paper.bib" 1523485766 1560 f0161a91b0b0c086d604fe3d30eaf594 ""
+  "paper.bcf" 1523489467 88771 9d64b43e5995b7094448f5a4529c9d2b ""
+  "paper.bib" 1523489222 2082 bd889852b8150a24d72ce415cb8ce584 ""
   (generated)
-  "paper.blg"
   "paper.bbl"
-["pdflatex"] 1523488282 "paper.tex" "paper.pdf" "paper" 1523488283
+  "paper.blg"
+["pdflatex"] 1523489466 "paper.tex" "paper.pdf" "paper" 1523489467
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1480098698 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1480098698 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1480098698 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -101,13 +101,13 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1514131519 79663 fe86148abfbb516615a10a5c4755b6bf ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1514125355 2589344 e3e8f289402fb761e5a9dc94a585dc77 ""
   "/usr/local/texlive/2017/texmf.cnf" 1514125340 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "paper.aux" 1523488283 3811 e18f6656e9af162b92b1d669593abdc8 ""
-  "paper.bbl" 1523486091 10237 68a09c5df3faff45b4fa887a598faef6 "biber paper"
-  "paper.run.xml" 1523488283 2310 03764d5e5630d6105f921d2870cad3c7 ""
-  "paper.tex" 1523488280 7265 ea35cb17dfa34ea7d356c279f776ebc8 ""
+  "paper.aux" 1523489467 4095 53039ec34faeb85658317b8ad54b4a1b ""
+  "paper.bbl" 1523489464 13028 071cba11e77a8ff83593489cd1833945 "biber paper"
+  "paper.run.xml" 1523489467 2310 03764d5e5630d6105f921d2870cad3c7 ""
+  "paper.tex" 1523489457 7312 62c8ee1084ef763d351c62c14729d4ae ""
   (generated)
-  "paper.aux"
   "paper.bcf"
-  "paper.log"
   "paper.pdf"
+  "paper.aux"
   "paper.run.xml"
+  "paper.log"

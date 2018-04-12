@@ -1928,7 +1928,9 @@
     <bcf:citekey order="3">boyd2004convex</bcf:citekey>
     <bcf:citekey order="4">dal2015calibrating</bcf:citekey>
     <bcf:citekey order="5">shalev2011pegasos</bcf:citekey>
-    <bcf:citekey order="6">zinkevich2010parallelized</bcf:citekey>
+    <bcf:citekey order="6">polyak1992acceleration</bcf:citekey>
+    <bcf:citekey order="7">nesterov</bcf:citekey>
+    <bcf:citekey order="8">zinkevich2010parallelized</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

@@ -160,6 +160,72 @@
       \field{pages}{159\bibrangedash 166}
       \range{pages}{8}
     \endentry
+    \entry{nesterov}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=8a41b35fe7b3d1725cb95bd7eec40b01}{%
+           family={Nesterov},
+           familyi={N\bibinitperiod},
+           given={Yurii},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{8a41b35fe7b3d1725cb95bd7eec40b01}
+      \strng{fullhash}{8a41b35fe7b3d1725cb95bd7eec40b01}
+      \strng{bibnamehash}{8a41b35fe7b3d1725cb95bd7eec40b01}
+      \strng{authorbibnamehash}{8a41b35fe7b3d1725cb95bd7eec40b01}
+      \strng{authornamehash}{8a41b35fe7b3d1725cb95bd7eec40b01}
+      \strng{authorfullhash}{8a41b35fe7b3d1725cb95bd7eec40b01}
+      \field{sortinit}{N}
+      \field{sortinithash}{f7242c3ed3dc50029fca1be76c497c7c}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Soviet Mathematics Doklady}
+      \field{title}{A method of solving a convex programming problem with convergence rate O(1/sqr(k))}
+      \field{volume}{27}
+      \field{year}{1983}
+      \field{pages}{372\bibrangedash 376}
+      \range{pages}{5}
+    \endentry
+    \entry{polyak1992acceleration}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=ccd7eace32a9cfebc1b5b23c7a900ed6}{%
+           family={Polyak},
+           familyi={P\bibinitperiod},
+           given={Boris\bibnamedelima T},
+           giveni={B\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=abec83169001a0f6cbc1d95585501c70}{%
+           family={Juditsky},
+           familyi={J\bibinitperiod},
+           given={Anatoli\bibnamedelima B},
+           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {SIAM}%
+      }
+      \strng{namehash}{73d4b99bcfcd02280b45c9d79dab08d3}
+      \strng{fullhash}{73d4b99bcfcd02280b45c9d79dab08d3}
+      \strng{bibnamehash}{73d4b99bcfcd02280b45c9d79dab08d3}
+      \strng{authorbibnamehash}{73d4b99bcfcd02280b45c9d79dab08d3}
+      \strng{authornamehash}{73d4b99bcfcd02280b45c9d79dab08d3}
+      \strng{authorfullhash}{73d4b99bcfcd02280b45c9d79dab08d3}
+      \field{sortinit}{P}
+      \field{sortinithash}{8d51b3d5b78d75b54308d706b9bbe285}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM Journal on Control and Optimization}
+      \field{number}{4}
+      \field{title}{Acceleration of stochastic approximation by averaging}
+      \field{volume}{30}
+      \field{year}{1992}
+      \field{pages}{838\bibrangedash 855}
+      \range{pages}{18}
+    \endentry
     \entry{shalev2011pegasos}{article}{}
       \name{author}{4}{}{%
         {{uniquename=0,uniquepart=base,hash=a6c5827676b0a2058e5b904c3dd7f878}{%
