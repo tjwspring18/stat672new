@@ -35,8 +35,7 @@ def RunSimulation(n, D):
 	# break data into 10 folds
 	folds = np.split(mat, 10)
 
-	lst1 = [1,2,3,4,5,6,7,8,9,10]
-	lst2 = []
+	lst = []
 	# for every fold...
 	for fold in folds:
 
@@ -60,12 +59,8 @@ def RunSimulation(n, D):
 		# validate
 		err = 1-L.score(test_X, test_Y)
 
-		lst2.append(err)
+		lst.append(err)
 	
-	print("fold,err")
-	for i in range(0,10):
-		print(lst1[i], lst2[i], sep = ",")
-	
-	print("Average err:", sum(lst2)/10)
+	print("10-fold CV error:", sum(lst)/10)
 
-RunSimulation(100, 10000)
+RunSimulation(10000, 100)
