@@ -5,6 +5,7 @@
 \usepackage{bm}
 
 \DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
 
 \usepackage[citestyle=authoryear]{biblatex}
 \addbibresource{paper.bib}
@@ -51,31 +52,21 @@ Assuming that the outcome variable follows a
 particular statistical distribution aids the computation of optimal coefficients. 
 For example, assumptions in ordinary least squares (OLS)
 regression---assumptions that readers almost certainly are familiar with and so will not be
-repeated here---allow a closed form solution. Suppose we have $n$
-observations. Each observation consists of an outcome variable $y_i$ and some
-explanatory variables $x_{i1}, x_{i2}\ldots x_{iD}$. We thus have a vector of
-outcomes $\bm{Y}_{n \times 1}$ and a feature matrix $\bm{X}_{n \times D}$. All
-variables are real numbers: $\bm{X} \in \mathbb{R}^{n \times D}$, $\bm{Y} \in
-\mathbb{R}^{n \times 1}$. The goal
-is estimate weights $w_1 \ldots w_j \ldots w_D$, or $\bm{w}_{1 \times D}$, that relate the explanatory variables
-to the outcome.\footnote{Readers may be more familiar with $\bm{\beta}$ as the
-notation for coefficients. $\bm{w}$ is used here to ensure common notation with
-other classes of models.} The normal equations give:
-
-$$
-\hat{\bm{w}} = (\bm{X}'\bm{X})^{-1}\bm{X}'\bm{Y}
-$$
+repeated here---allow a closed form solution. The optimization problem of
+choosing coefficient $\hat{\bm{\beta}}$ that minimize squared error is solved
+by $\hat{\bm{\beta}} = (\bm{X}'\bm{X})^{-1}\bm{X}'\bm{Y}$ (where $\bm{X}$ is the
+feature matrix and $\bm{Y}$ the outcome variable).
 
 Even if a parametric model does not have a closed-form solution, the parametric
 assumption allows some useful optimization techniques. Consider logistic
-regression. The maximum likelihood estimator (MLE) approach leads to
-a system of $D$ equations. This system of
+regression. The maximum likelihood estimator (MLE) approach for estimating
+coefficients leads to a system of $D$ equations. This system of
 equations typically is numerically solved using the iterative Newton-Raphson
 algorithm:
 
 $$
-\hat{\bm{w}}_{n+1} = \hat{\bm{w}}_{n} -
-\bm{H}^{-1}(\hat{\bm{w}}_n)\bm{J}(\hat{\bm{w}}_n)
+\hat{\bm{\beta}}_{n+1} = \hat{\bm{\beta}}_{n} -
+\bm{H}^{-1}(\hat{\bm{\beta}}_n)\bm{J}(\hat{\bm{\beta}}_n)
 $$
 
 $\bm{J}$ is the Jacobian (the
@@ -87,26 +78,25 @@ because parametric and independent-and-identically-distributed (IID) assumptions
 mean $l$ is a simple sum of the log probability distribution
 function (PDF, in this case binomial) for each observation. We ``know'' (assume)
 the form of this PDF and so are
-confident that the second derivative exists and is not too onerous to calculate. It may not be true, and hence
-Newton-Raphson will not be practical, if the Jacobian or Hessian of the function we are trying to
-maximize or minimize (perhaps not $l$) are non-existent or cumbersome. 
-
+confident that the second derivative exists and is not too onerous to calculate.
+In non-parametric settings, we often cannot be so certain and face the possibility of
+$\bm{H}$ being non-existent or cumbersome.
 
 The need to conduct optimization in non-parametric settings is a chief
 motivation for gradient descent (GD), of which SGD is a variant. In
 non-parametric settings---most notably supervised and unsupervised statistical
-learning, in which we again seek to find optimal $\hat{\bm{w}}$ to relate input
+learning, in which we again seek to find optimal coefficients to relate input
 variables to output variables for the purposes of classification or regression---there 
-typically is no closed form solution for $\hat{\bm{w}}$. It
+typically is no closed form solution for the coefficients. It
 also may not be convenient to find and evaluate the Hessian, making
 Newton-Raphson undesirable. SGD does not require any parametric assumptions. 
 In its most basic form, SGD only requires finding the gradient (though some extensions
 do need the Hessian or an approximation to it). 
 SGD thus is well-suited for non-parametric settings.
 
-\subsubsection{Computational complexity}
+\subsubsection{Computational Complexity}
 
-How an optimization technique scales with $n$ and $D$ is another important
+How an optimization technique scales with sample size $n$ is another important
 consideration. It is little comfort if a method reaches the correct solution but
 requires an excessive amount of time to do so. ``Plain'' or
 ``batch'' GD requires evaluating the gradient for every single observation,
@@ -125,18 +115,65 @@ and big data problems.
 
 \section{Method and Theory}
 
-\subsection{Setup and Notation}
+\subsection{Basic setup}
 
-Consider a typical soft-margin support vector machine (SVM) problem.
+Loosely following the set-up of \cite{bottou2010large}, consider a typical supervised classification problem. We have
+feature matrix $\bm{X}_{n \times D, n \in \mathbb{R}^n, D \in \mathbb{R}^D}$ (corresponding to $n$ observations and $D$
+features) and labels $\bm{Y}_{n \times 1}, Y_i \in \{-1, 1\}$. The goal is to
+predict a particular observation's label $Y_i$ using that observation's features $\bm{X}_i$. 
+We have a hypothesis class $\mathcal{F}$ consisting of
+various functions $f_{\bm{w}}(\bm{X}_i) \in \mathcal{F}$ parametrized by weight
+vector $\bm{w}$. We have loss function $L(Y_i, f_{\bm{w}}(\bm{X}_i))$ that
+expresses the cost of mis-classification. Assume for now that $L$ is convex. 
+We will consider the optimal function $\hat{f}_{\bm{w}}(\bm{X}_i) \in F$ 
+that which minimizes empirical risk over all observations: $\frac{1}{n}
+\sum_{i=1}^n L(Y_i, f_{\bm{w}}(\bm{X}_i))$.
+Denote $\hat{\bm{w}}$ the weight coefficients of this optimal function. We thus
+have:
 
-\subsection{Basic Form}
+\begin{equation}
+	\hat{\bm{w}} = \argmin_{\bm{w}}\frac{1}{n} \sum_{i=1}^n L(Y_i, f_{\bm{w}}(\bm{X}_i))
+\end{equation}
 
-\cite{bottou2010large}
-\cite{bottou2012stochastic}
-\cite{boyd2004convex}
-\cite{dal2015calibrating}
+Because $L$ is convex, basic calculus tells us that there is one critical point,
+it is the global minimum, and it is located where the gradient of the loss
+function with respect to $\bm{w}$, $\nabla_{\bm{w}}$, is zero. GD is an iterative
+algorithm to numerically approximate this point:
+
+\begin{equation}
+	\bm{w}_{t+1} = \bm{w}_t - \gamma \frac{1}{n}\sum_{i=1}^n
+	\nabla_{\bm{w}}L(Y_i, f_{\bm{w}_t}(\bm{X}_i))
+\end{equation}
+
+$t$ refers to iterations. $\gamma$ is a parameter controlling the step
+size (also called ``learning rate''). Assume for now that $\gamma$ is fixed. 
+The algorithm stops when the gradient is
+arbitarily close to zero; or, put differently, when the difference between this
+iteration's estimate and the last iteration's estimate is arbitrarily small.
+
+\begin{equation}
+	\bm{w}_t - \bm{w}_{t-1} \leq \epsilon
+\end{equation}
+
+Note that the batch GD algorithm presented in (2) requires evaluating the
+gradient for every single observation $i$. In a large-$n$ dataset, this can be
+computationally infeasible. SGD's innovation is to instead evaluate only a
+single randomly chosen observation $i$ at each iteration $t$, greatly lightening
+the computational load.
+
+\begin{equation}
+	\bm{w}_{t+1} = \bm{w}_t - \gamma 
+	\nabla_{\bm{w}}L(Y_i, f_{\bm{w}_t}(\bm{X}_i))
+\end{equation}
+
+Having outlined the basic form of SGD, we now examine some of its key
+properties.
 
 \subsection{Key Properties}
+
+\subsubsection{Correctness}
+
+\subsubsection{Speed}
 
 \subsection{Extensions}
 
@@ -144,6 +181,9 @@ The basic SGD algorithm has been extended in different ways. The popularity of
 the algorithm disallows a comprehensive or detailed treatment of all
 development. This sub-section covers some of the more interesting extensions.
 
+\cite{bottou2012stochastic}
+\cite{boyd2004convex}
+\cite{dal2015calibrating}
 \subsubsection{Step Size (Learning Rate)}
 
 \cite{shalev2011pegasos}
@@ -166,8 +206,10 @@ interest in whether SGD can be made even faster by parallelizing it.
 actual algorithms are strikingly simple; their proof is highly technical and
 omitted here.
 
-Consider the SVM problem posed in Section 2.
+The parallelization technique essentially is averaging. In line with previous
+notation, suppose we have fixed learning rate $\gamma$, 
 
+Advantages
 
 \section{Applications}
 
