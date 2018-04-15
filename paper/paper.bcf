@@ -1923,14 +1923,17 @@
     <bcf:datasource type="file" datatype="bibtex">paper.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">bottou2010large</bcf:citekey>
-    <bcf:citekey order="2">bottou2012stochastic</bcf:citekey>
+    <bcf:citekey order="1">tibs_notes</bcf:citekey>
+    <bcf:citekey order="2">bottou2010large</bcf:citekey>
     <bcf:citekey order="3">boyd2004convex</bcf:citekey>
-    <bcf:citekey order="4">dal2015calibrating</bcf:citekey>
-    <bcf:citekey order="5">shalev2011pegasos</bcf:citekey>
-    <bcf:citekey order="6">polyak1992acceleration</bcf:citekey>
+    <bcf:citekey order="4">bottou2012stochastic</bcf:citekey>
+    <bcf:citekey order="5">rumelhart1986general</bcf:citekey>
+    <bcf:citekey order="6">qian1999momentum</bcf:citekey>
     <bcf:citekey order="7">nesterov</bcf:citekey>
-    <bcf:citekey order="8">zinkevich2010parallelized</bcf:citekey>
+    <bcf:citekey order="8">polyak1992acceleration</bcf:citekey>
+    <bcf:citekey order="9">zinkevich2010parallelized</bcf:citekey>
+    <bcf:citekey order="10">shalev2011pegasos</bcf:citekey>
+    <bcf:citekey order="11">dal2015calibrating</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

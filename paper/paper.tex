@@ -115,83 +115,254 @@ and big data problems.
 
 \section{Method and Theory}
 
-\subsection{Basic setup}
+\subsection{Basic Form}
 
-Loosely following the set-up of \cite{bottou2010large}, consider a typical supervised classification problem. We have
-feature matrix $\bm{X}_{n \times D, n \in \mathbb{R}^n, D \in \mathbb{R}^D}$ (corresponding to $n$ observations and $D$
-features) and labels $\bm{Y}_{n \times 1}, Y_i \in \{-1, 1\}$. The goal is to
-predict a particular observation's label $Y_i$ using that observation's features $\bm{X}_i$. 
-We have a hypothesis class $\mathcal{F}$ consisting of
-various functions $f_{\bm{w}}(\bm{X}_i) \in \mathcal{F}$ parametrized by weight
-vector $\bm{w}$. We have loss function $L(Y_i, f_{\bm{w}}(\bm{X}_i))$ that
-expresses the cost of mis-classification. Assume for now that $L$ is convex. 
-We will consider the optimal function $\hat{f}_{\bm{w}}(\bm{X}_i) \in F$ 
-that which minimizes empirical risk over all observations: $\frac{1}{n}
-\sum_{i=1}^n L(Y_i, f_{\bm{w}}(\bm{X}_i))$.
-Denote $\hat{\bm{w}}$ the weight coefficients of this optimal function. We thus
-have:
+This section presents the basic form of GD and SGD to set up a more detailed
+examination in subsequent sections. Suppose we want to minimize a function $f: \mathbb{R}^D \to \mathbb{R}$. 
 
 \begin{equation}
-	\hat{\bm{w}} = \argmin_{\bm{w}}\frac{1}{n} \sum_{i=1}^n L(Y_i, f_{\bm{w}}(\bm{X}_i))
+	\min_w f(w)
 \end{equation}
 
-Because $L$ is convex, basic calculus tells us that there is one critical point,
-it is the global minimum, and it is located where the gradient of the loss
-function with respect to $\bm{w}$, $\nabla_{\bm{w}}$, is zero. GD is an iterative
-algorithm to numerically approximate this point:
+$f$ takes as input $w \in \mathbb{R}^D$. Assume
+that $f$ is convex and differentiable, i.e. we can compute its gradient with
+respect to $w$, $\nabla f(w)$. The optimal $w$, i.e. that which minimizes (1),
+is denoted $\hat{w}$. The iterative GD algorithm for finding $\hat{w}$ is:
 
 \begin{equation}
-	\bm{w}_{t+1} = \bm{w}_t - \gamma \frac{1}{n}\sum_{i=1}^n
-	\nabla_{\bm{w}}L(Y_i, f_{\bm{w}_t}(\bm{X}_i))
+	w^{(t+1)} = w^{(t)} - \gamma \nabla f(w^{(t)})
 \end{equation}
 
-$t$ refers to iterations. $\gamma$ is a parameter controlling the step
-size (also called ``learning rate''). Assume for now that $\gamma$ is fixed. 
-The algorithm stops when the gradient is
-arbitarily close to zero; or, put differently, when the difference between this
-iteration's estimate and the last iteration's estimate is arbitrarily small.
+$t$ refers to a particular iteration. Assume that we have supplied an initial
+starting guess for $w$ for $t=0$, $w^{(0)}$. $\gamma$ refers to step size (also called
+learning rate). Assume for now that $\gamma$ is fixed. The GD algorithm iterates
+until some stop condition is met. This may be a fixed number of iterations, or
+that the quality of approximation meets some predefined threshold. 
+A common stopping condition is when the L2 norm of the gradient
+is less than some arbitrarily small constant. 
 
 \begin{equation}
-	\bm{w}_t - \bm{w}_{t-1} \leq \epsilon
+	||\nabla f(w^{(t)})||_2 \leq \epsilon
 \end{equation}
 
-Note that the batch GD algorithm presented in (2) requires evaluating the
-gradient for every single observation $i$. In a large-$n$ dataset, this can be
-computationally infeasible. SGD's innovation is to instead evaluate only a
-single randomly chosen observation $i$ at each iteration $t$, greatly lightening
-the computational load.
+Consider a modified situation. Suppose $f$ now takes two arguments, $w$ and $X
+\in \mathbb{R}^D$. $f : \mathbb{R}^D \times \mathbb{R}^D \rightarrow
+\mathbb{R}$. We have $n$ observations of $X$, and denote by
+$\bm{X}_{n \times D}$ the matrix of these observations, with $X_i$ being a
+particular observation or row in that matrix. We apply
+$f$ over all observations, i.e. $\frac{1}{n} \sum_{i=1}^n f(w, X_i)$. Our new
+problem is:
 
 \begin{equation}
-	\bm{w}_{t+1} = \bm{w}_t - \gamma 
-	\nabla_{\bm{w}}L(Y_i, f_{\bm{w}_t}(\bm{X}_i))
+	\min_w  \frac{1}{n} \sum_{i=1}^n f(w, X_i)
 \end{equation}
 
-Having outlined the basic form of SGD, we now examine some of its key
-properties.
+We could apply the GD algorithm above to find the optimal $w$.
+
+\begin{equation}
+	w^{(t+1)} = w^{(t)} - \gamma \frac{1}{n} \sum_{i=1}^n \nabla f(w^{(t)},
+	X_i)
+\end{equation}
+
+But, note that doing so requires evaluating the gradient at every single
+observation $i \leq n$. This may be computationally intractable for large $n$
+and high-dimensional $D$. The innovation of SGD is to instead evaluate only a
+single randomly-chosen $i$ at each iteration $t$.
+
+\begin{equation}
+	w^{(t+1)} = w^{(t)} - \gamma \nabla f(w^{(t)}, X_i)
+\end{equation}
+
+As it turns out, SGD converges to $\hat{w}$ and does so in a computationally
+advantageous way compared to GD.
 
 \subsection{Key Properties}
 
 \subsubsection{Correctness}
 
+This section gives both intuition and (partial) proof for why (S)GD converges to
+$\hat{w}$.
+
+Intuitively, our assumption that $f$ is convex means that there is one critical
+point and it is the global minimum. Basic calculus tells us that this critical
+point is located where $f'=0$ (in one dimension) or $\nabla f = 0$ (in higher
+dimensions). So our task is to search in the space of $f$ for that point. We
+start with some initial guess $w^{(0)}$, and every iteration, move ``down'' the
+gradient in search of zero. Every iteration, we check if the gradient is equal
+to 0; if not, we keep moving ``down.'' If the gradient is arbitrarily close to
+zero, then we have found the critical point, which must be the value of $w$ that
+minimizes $f$ and hence is $\hat{w}$ (or at least a close approximation to it).
+
+For a more formal proof---following that of \cite{tibs_notes}---assume (in addition to previously stated assumptions
+that $f$ is convex and differentiable) that the gradient of $f$ is Lipschitz-continuous
+with constant $L$, i.e. that $||\nabla f(x) - \nabla f(y)||_2 \leq L||x-y||_2$
+for any $x, y$. This implies that $\nabla^2 f(w) - LI$ is a negative
+semi-definite matrix. We perform a quadratic expansion of $f$ around $f(x)$ and
+obtain the following inequality:
+$$
+f(y) \leq f(x) + \nabla f(x)^T(y-x) + \frac{1}{2}\nabla^2 f(x)||y-x||_2^2
+$$
+\begin{equation}
+	\leq f(x) + \nabla f(x)^T(y-x) + \frac{1}{2}L||y-x||_2^2
+\end{equation}
+
+Now, suppose we use the GD algorithm presented in (2) with $\gamma \leq
+\frac{1}{L}$. Denote $x^+ = x - \gamma \nabla
+f(x)$ and substitute $x^+$ in for $y$:
+
+$$ f(x^+) \leq f(x) + \nabla f(x)^T(x^+ - x) + \frac{1}{2}L||x^+ - x||_2^2 $$
+$$ = f(x) + \nabla f(x)^T(x - \gamma \nabla f(x) - x) + \frac{1}{2}L||x - \gamma \nabla f(x) - x||_2^2 $$
+$$ = f(x) - \nabla f(x)^T \gamma \nabla f(x)  + \frac{1}{2}L||\gamma \nabla f(x)||_2^2 $$
+$$ = f(x) - \gamma||\nabla f(x)||_2^2 + \frac{1}{2} L \gamma^2||\nabla f(x)||_2^2$$
+\begin{equation}
+= f(x) - (1 - \frac{1}{2}L\gamma)\gamma||\nabla f(x)||_2^2 
+\end{equation}
+
+We have defined $\gamma \leq \frac{1}{L}$. This implies:
+$$
+-(1 - \frac{1}{2}L \gamma) = \frac{1}{2}L \gamma - 1
+\leq \frac{1}{2}L\frac{1}{L} - 1
+= \frac{1}{2} - 1
+= - \frac{1}{2}
+$$
+
+Returning to (8), we obtain:
+
+\begin{equation}
+f(x^+) \leq f(x) - \frac{1}{2}\gamma||\nabla f(x)||_2^2
+\end{equation}
+
+By definition, a squared L2 norm will always be positive unless its content is
+0, and we have defined $\gamma$ to be positive, so $\frac{1}{2} \gamma||\nabla f(x)||_2^2$ will always be positive unless the
+gradient is equal to zero. So, (9) implies that GD results in a strictly
+decreasing objective function value until it reaches the point where the
+gradient equals zero, which is the optimal value. A key caveat is an
+appropriately chosen $\gamma$, a point covered in more detail later.
+
+The above proof is for GD. A rigorous proof is not given for why SGD also
+converges to the optimal value. Informally, we can note that the above proof
+says given infinite $t$ and appropriate $\gamma$, the iterative algorithm will
+always converge to the optimal value. SGD is doing the same thing as GD, 
+just with a single observation per iteration 
+rather than the entire dataset per iteration. Since SGD is using less information
+per iteration, we would expect the convergence to require more iterations. But
+per (9) it is guaranteed to \textit{eventually} arrive at the optimal solution.
+Put differently, the difference between GD and SGD must then primarily revolve
+around convergence speed, not the final value that is converged to.
+
 \subsubsection{Speed}
+
+Table 1---a simplified version of that in \cite{bottou2010large}---illustrates
+the computational advantages of SGD over GD. As shown in row 1, because SGD uses
+less information per iteration than GD, it requires more iterations to achieve
+some fixed degree of accuracy $\rho$.
+However, row 2 shows that because GD computes the gradient for every observation every iteration,
+while SGD only does so for a single randomly chosen iteration, GD's time per
+iteration scales linearly with $n$ while SGD's is a constant. Thus, we conclude
+that SGD's time to
+reach accuracy $\rho$ scales only with $\rho$, while GD's scales with both
+$\rho$ and---crucially---linearly with $n$. So, the larger $n$ grows, the larger
+SGD's computational advantage over GD.
+
+\begin{table}[h!]
+	\centering
+	\caption{Asymptotic comparison of GD and SGD}
+	\begin{tabular}{|l l l|}
+		\hline
+		& \textbf{GD} & \textbf{SGD} \\
+		Iterations to accuracy $\rho$ & $\log \frac{1}{\rho}$ & $\frac{1}{\rho}$ \\
+		Time per iteration & $n$ & 1 \\
+		Time to accuracy $\rho$ & $n \log \frac{1}{p}$ & $\frac{1}{\rho}$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+We can visually depict SGD's ``noisier'' convergence in comparison to GD. 
 
 \subsection{Extensions}
 
-The basic SGD algorithm has been extended in different ways. The popularity of
+The basic SGD algorithm has been extended in many different ways. The popularity of
 the algorithm disallows a comprehensive or detailed treatment of all
-development. This sub-section covers some of the more interesting extensions.
+development. This sub-section covers some of the more important and interesting extensions.
 
-\cite{bottou2012stochastic}
-\cite{boyd2004convex}
-\cite{dal2015calibrating}
-\subsubsection{Step Size (Learning Rate)}
+\subsubsection{Step Size}
 
-\cite{shalev2011pegasos}
+As hinted at in our proof of convergence to $\hat{w}$, much depends on
+an appropriately chosen step size $\gamma$. If $\gamma$ is too small, (S)GD may
+take an excessively long time to run (since we are only moving a small distance
+``down'' the gradient every iteration); if $\gamma$ is too large, then an
+iteration's step may ``overshoot'' the critical point and prevent convergence.
+An entire literature has developed around the best way to select $\gamma$. The
+central insight that is common to most $\gamma$-selection methods is to treat it
+as a time-indexed rather than fixed hyperparameter, i.e., $\gamma^{(t)}$ rather
+than $\gamma$. Ideally we would like $\gamma^{(t)}$ to be large when far away
+from the critical point (so as to increase speed of convergence) and to be small
+when close to the critical point (so as to avoid overshooting).
 
-\subsubsection{Momentum}
+Line search is one method for computing step size. As described in
+\cite{boyd2004convex}, there are two main variants: \textit{exact} and
+\textit{backtracking}. In exact line search, $\gamma$ is chosen to minimize $f$
+along the ray $\{x + \gamma \Delta x\}$, where $\gamma \in \mathbb{R}^+)$ and
+$\Delta x$ is the descent direction determined by SGD:
+\begin{equation}
+	\gamma = \argmin_{s \geq 0} f(x + s\Delta x)
+\end{equation}
+This obviously is an optimization problem in and of itself, and
+so it can be computationally impractical to add this burden in addition to the
+``main'' optimization problem we are trying to solve using SGD. For this reason,
+\textit{backtracking} is an iterative approximation method that is
+computationally lighter. The backtracking algorithm takes two hyper-parameters
+$\alpha \in (0, 0.5)$ and $\beta \in (0, 1)$. It starts with an initial guess of
+$s^{(0)} = 1$, and then for every iteration $t$, updates $s := \beta t$. The
+algorithm stops when $f(x + s \Delta x) \leq f(x) + \alpha s \Delta f(x)^T
+\Delta x$, and the final value of $s$ is taken as $\gamma$. 
 
+\cite{bottou2012stochastic} advocates using learning rates of the form
+$\gamma^{(t)} = \gamma^{(0)}(1 + \gamma^{(0)}\lambda t)^{-1}$. When the Hessian
+$H$ of $f$ is strictly positive, using $\gamma^{(t)} =
+(\lambda_{\mathrm{min}}t)^{-1}$, where $\lambda_{\mathrm{min}}$ is the smallest
+eigenvalue of $H$, produces the best convergence speed. Note that $
+(\lambda_{\mathrm{min}}t)^{-1}$ decreases asymptotically with $t$, matching our intuition
+about larger step sizes in early iterations and smaller step sizes in later
+iterations. However, simply using $\gamma^{(t)} =
+(\lambda_{\mathrm{min}}t)^{-1}$ can produce \textit{too} large of steps in early
+iterations. Hence, it often works better to start with some reasonable initial
+estimate $\gamma^{(0)}$ that then decays in the fashion of
+$(\lambda_{\mathrm{min}}t)^{-1}$, leading to the expression in the first
+sentence of this paragraph. By definition, ``reasonable'' is more of a judgment
+call than a mathematical statement: Bottou provides some heuristics for creating
+such an estimate of $\gamma^{(0)}$.
+
+\subsubsection{Momentum and Acceleration}
+
+In our set-up of SGD, we stipulated that the function to be minimized, $f$, is
+convex. Although this is a necessary condition for some proofs of SGD's
+correctness, SGD is widely used in applications---most prominently, neural
+networks and deep
+learning---where this assumption is not
+always true (as covered in more detail in CHAPTER X). In such settings, it is
+possible that there are multiple local minima. The challenge for SGD is
+how to avoid getting ``stuck'' in these local ravines and continue iterating
+until the true global minimum is achieved.
+
+Momentum---also called acceleration---is a common technique for avoiding this. As outlined in
+\cite{rumelhart1986general} and 
+\cite{qian1999momentum}, we add a new acceleration term to the familiar GD
+equation. Let $z^{(t+1)} = \alpha z^{(t)} + \nabla f(w^{(t)})$. GD with
+momentum then is:
+
+\begin{equation}
+	w^{(t+1)} = w^{(t)} - \gamma z^{(t+1)}
+\end{equation}
+
+Now, the weight vector obtained for the current timestep depends both on the
+current gradient \textit{and the gradient of the previous time-step}.
+Intuitively, without acceleration, SGD tends to oscillate within a ravine
+because the gradient is dominated by the steep curves on either side of the
+ravine; acceleration helps point the descent along the shallower curve leading
+out of the ravine. \cite{nesterov} provides another popular implementation of
+acceleration.
 \cite{polyak1992acceleration}
-\cite{nesterov}
 
 \subsubsection{Averaging}
 
@@ -213,8 +384,57 @@ Advantages
 
 \section{Applications}
 
+\cite{shalev2011pegasos}
 \subsection{SGD and Statistical Learning}
+\cite{dal2015calibrating}
 
+Loosely following the set-up of , consider a typical supervised classification problem. We have
+feature matrix $\bm{X}_{n \times D, n \in \mathbb{R}^n, D \in \mathbb{R}^D}$ (corresponding to $n$ observations and $D$
+features) and labels $\bm{Y}_{n \times 1}, Y_i \in \{-1, 1\}$. The goal is to
+predict a particular observation's label $Y_i$ using that observation's features $\bm{X}_i$. 
+We have a hypothesis class $\mathcal{F}$ consisting of
+various functions $f_{\bm{w}}(\bm{X}_i) \in \mathcal{F}$ parametrized by weight
+vector $\bm{w}$. We have loss function $L(Y_i, f_{\bm{w}}(\bm{X}_i))$ that
+expresses the cost of mis-classification. Assume for now that $L$ is convex. 
+We will consider the optimal function $\hat{f}_{\bm{w}}(\bm{X}_i) \in F$ 
+that which minimizes empirical risk over all observations: $\frac{1}{n}
+\sum_{i=1}^n L(Y_i, f_{\bm{w}}(\bm{X}_i))$.
+Denote $\hat{\bm{w}}$ the weight coefficients of this optimal function. We thus
+have:
+
+\begin{equation}
+	\hat{\bm{w}} = \argmin_{\bm{w}}\frac{1}{n} \sum_{i=1}^n L(Y_i, f_{\bm{w}}(\bm{X}_i))
+\end{equation}
+
+Because $L$ is convex, there is one critical point,
+it is the global minimum, and it is located where the gradient of the loss
+function with respect to $\bm{w}$ is zero. GD is an iterative
+algorithm that can be used to numerically approximate this point. We first state
+it in a general form, and then adapt it to the specific problem outlined above.
+
+\begin{equation}
+	\bm{w}_{t+1} = \bm{w}_t - \gamma \frac{1}{n}\sum_{i=1}^n
+	\nabla L(Y_i, f_{\bm{w}_t}(\bm{X}_i))
+\end{equation}
+
+$t$ refers to iterations. $\gamma$ is a parameter controlling the step
+size (also called ``learning rate''). Assume for now that $\gamma$ is fixed. For
+$t=0$ we must supply an initial starting guess, $\bm{w}_0$.  
+
+\begin{equation}
+	\left|\frac{1}{n}\sum_{i=1}^n \nabla L(\bm{Y}_i,
+	f_{\bm{w}_t}(\bm{X}_i))\right| \leq \epsilon
+\end{equation}
+
+Note that the batch GD algorithm presented in (2) requires evaluating the
+gradient for every single observation $i$. In a large-$n$ dataset, this can be
+computationally infeasible. SGD's innovation is to instead evaluate only a
+single randomly chosen observation $i$ at each iteration $t$.
+
+\begin{equation}
+	\bm{w}_{t+1} = \bm{w}_t - \gamma 
+	\nabla L(Y_i, f_{\bm{w}_t}(\bm{X}_i))
+\end{equation}
 \section{Conclusion}
 
 \printbibliography

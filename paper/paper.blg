@@ -1,19 +1,20 @@
 [0] Config.pm:302> INFO - This is Biber 2.10
 [1] Config.pm:305> INFO - Logfile is 'paper.blg'
-[66] biber:313> INFO - === Sat Apr 14, 2018, 20:28:21
-[112] Biber.pm:371> INFO - Reading 'paper.bcf'
-[287] Biber.pm:857> INFO - Found 8 citekeys in bib section 0
-[316] Biber.pm:3976> INFO - Processing section 0
-[338] Biber.pm:4136> INFO - Looking for bibtex format file 'paper.bib' for section 0
-[338] bibtex.pm:1444> INFO - Reading ascii input as UTF-8
-[339] bibtex.pm:1490> INFO - LaTeX decoding ...
-[366] bibtex.pm:1306> INFO - Found BibTeX data source 'paper.bib'
-[496] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[496] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[497] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[497] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
-[517] bbl.pm:617> INFO - Writing 'paper.bbl' with encoding 'ascii'
-[523] Utils.pm:193> WARN - The entry 'bottou2010large' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[526] Utils.pm:193> WARN - The entry 'bottou2012stochastic' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[541] bbl.pm:720> INFO - Output to paper.bbl
-[541] Biber.pm:110> INFO - WARNINGS: 2
+[63] biber:313> INFO - === Sun Apr 15, 2018, 14:30:35
+[110] Biber.pm:371> INFO - Reading 'paper.bcf'
+[273] Biber.pm:857> INFO - Found 11 citekeys in bib section 0
+[301] Biber.pm:3976> INFO - Processing section 0
+[323] Biber.pm:4136> INFO - Looking for bibtex format file 'paper.bib' for section 0
+[324] bibtex.pm:1444> INFO - Reading ascii input as UTF-8
+[325] bibtex.pm:1490> INFO - LaTeX decoding ...
+[359] bibtex.pm:1306> INFO - Found BibTeX data source 'paper.bib'
+[369] Utils.pm:193> WARN - month field 'September' in entry 'tibs_notes' is not an integer - this will probably not sort properly.
+[521] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[521] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[521] Biber.pm:3804> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[522] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[547] bbl.pm:617> INFO - Writing 'paper.bbl' with encoding 'ascii'
+[553] Utils.pm:193> WARN - The entry 'bottou2010large' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[556] Utils.pm:193> WARN - The entry 'bottou2012stochastic' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[573] bbl.pm:720> INFO - Output to paper.bbl
+[574] Biber.pm:110> INFO - WARNINGS: 3

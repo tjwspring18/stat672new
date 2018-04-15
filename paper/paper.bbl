@@ -226,6 +226,80 @@
       \field{pages}{838\bibrangedash 855}
       \range{pages}{18}
     \endentry
+    \entry{qian1999momentum}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=ea12a5aa5be72e296f6e28e632bf5b66}{%
+           family={Qian},
+           familyi={Q\bibinitperiod},
+           given={Ning},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{ea12a5aa5be72e296f6e28e632bf5b66}
+      \strng{fullhash}{ea12a5aa5be72e296f6e28e632bf5b66}
+      \strng{bibnamehash}{ea12a5aa5be72e296f6e28e632bf5b66}
+      \strng{authorbibnamehash}{ea12a5aa5be72e296f6e28e632bf5b66}
+      \strng{authornamehash}{ea12a5aa5be72e296f6e28e632bf5b66}
+      \strng{authorfullhash}{ea12a5aa5be72e296f6e28e632bf5b66}
+      \field{sortinit}{Q}
+      \field{sortinithash}{d257e420984a3a5c57a3330114cd646a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Neural networks}
+      \field{number}{1}
+      \field{title}{On the momentum term in gradient descent learning algorithms}
+      \field{volume}{12}
+      \field{year}{1999}
+      \field{pages}{145\bibrangedash 151}
+      \range{pages}{7}
+    \endentry
+    \entry{rumelhart1986general}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=d198ae71c61c758b90826c452447133f}{%
+           family={Rumelhart},
+           familyi={R\bibinitperiod},
+           given={David\bibnamedelima E},
+           giveni={D\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=5aeb1de9b6c6f00a078230c628e6f41c}{%
+           family={Hinton},
+           familyi={H\bibinitperiod},
+           given={Geoffrey\bibnamedelima E},
+           giveni={G\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=675d1a7b106bfedced16f3e16b06f488}{%
+           family={McClelland},
+           familyi={M\bibinitperiod},
+           given={James\bibnamedelima L},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ad8ed03b48169c05b35e2bc48aa8da03}
+      \strng{fullhash}{ad8ed03b48169c05b35e2bc48aa8da03}
+      \strng{bibnamehash}{ad8ed03b48169c05b35e2bc48aa8da03}
+      \strng{authorbibnamehash}{ad8ed03b48169c05b35e2bc48aa8da03}
+      \strng{authornamehash}{ad8ed03b48169c05b35e2bc48aa8da03}
+      \strng{authorfullhash}{ad8ed03b48169c05b35e2bc48aa8da03}
+      \field{sortinit}{R}
+      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Parallel distributed processing: Explorations in the microstructure of cognition}
+      \field{title}{A general framework for parallel distributed processing}
+      \field{volume}{1}
+      \field{year}{1986}
+      \field{pages}{45\bibrangedash 76}
+      \range{pages}{32}
+    \endentry
     \entry{shalev2011pegasos}{article}{}
       \name{author}{4}{}{%
         {{uniquename=0,uniquepart=base,hash=a6c5827676b0a2058e5b904c3dd7f878}{%
@@ -275,6 +349,35 @@
       \field{year}{2011}
       \field{pages}{3\bibrangedash 30}
       \range{pages}{28}
+    \endentry
+    \entry{tibs_notes}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=b14c3113cb378067f8d18e66d8503c10}{%
+           family={Tibshirani},
+           familyi={T\bibinitperiod},
+           given={Ryan},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{2}{%
+        {University of California, Berkeley - Electrical Engineering}%
+        {Computer Science (EECS) Department}%
+      }
+      \strng{namehash}{b14c3113cb378067f8d18e66d8503c10}
+      \strng{fullhash}{b14c3113cb378067f8d18e66d8503c10}
+      \strng{bibnamehash}{b14c3113cb378067f8d18e66d8503c10}
+      \strng{authorbibnamehash}{b14c3113cb378067f8d18e66d8503c10}
+      \strng{authornamehash}{b14c3113cb378067f8d18e66d8503c10}
+      \strng{authorfullhash}{b14c3113cb378067f8d18e66d8503c10}
+      \field{sortinit}{T}
+      \field{sortinithash}{6f7aff9db9dcfeb7f95fd5bbd2f78df9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{9}
+      \field{title}{EECS 10-725: Optimization, Lecture 6}
+      \field{year}{2013}
     \endentry
     \entry{zinkevich2010parallelized}{inproceedings}{}
       \name{author}{4}{}{%
