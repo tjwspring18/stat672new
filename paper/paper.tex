@@ -3,6 +3,9 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{bm}
+\usepackage{graphicx}
+\usepackage[linesnumbered, lined, boxed]{algorithm2e}
+\RestyleAlgo{boxruled}
 
 \DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator*{\argmin}{argmin}
@@ -12,7 +15,7 @@
 
 \author{Tom Wallace}
 
-\title{STAT 672 Final Project: Stochastic Gradient Descent}
+\title{STAT 672 Final Project:\\ Stochastic Gradient Descent}
 
 \begin{document}
 
@@ -246,8 +249,8 @@ always converge to the optimal value. SGD is doing the same thing as GD,
 just with a single observation per iteration 
 rather than the entire dataset per iteration. Since SGD is using less information
 per iteration, we would expect the convergence to require more iterations. But
-per (9) it is guaranteed to \textit{eventually} arrive at the optimal solution.
-Put differently, the difference between GD and SGD must then primarily revolve
+per (9) we expect it to \textit{eventually} arrive at the optimal solution.
+If so, the difference between GD and SGD must then primarily revolve
 around convergence speed, not the final value that is converged to.
 
 \subsubsection{Speed}
@@ -277,21 +280,36 @@ SGD's computational advantage over GD.
 	\end{tabular}
 \end{table}
 
-We can visually depict SGD's ``noisier'' convergence in comparison to GD. 
+Figure 1 visually compares SGD's convergence to that of GD (and
+mini-batch gradient descent, a variation addressed later in this
+paper).\footnote{Image taken from www.towardsdatascience.com} The
+path of SGD's convergence is very squiggly, reflecting the extra variation
+introduced by only using a single observation per iteration. The path of GD's
+convergence is much smoother, reflecting the use of all observations per
+iteration.
+
+\begin{figure}[h!]
+	\centering
+	\caption{Convergence}
+\includegraphics[scale=0.3]{img}
+\end{figure}
 
 \subsection{Extensions}
 
 The basic SGD algorithm has been extended in many different ways. The popularity of
 the algorithm disallows a comprehensive or detailed treatment of all
-development. This sub-section covers some of the more important and interesting extensions.
+developments. This sub-section covers some of the more important and interesting
+ones.
+
 
 \subsubsection{Step Size}
 
 As hinted at in our proof of convergence to $\hat{w}$, much depends on
-an appropriately chosen step size $\gamma$. If $\gamma$ is too small, (S)GD may
+an appropriately chosen step size $\gamma$. If $\gamma$ is too small, gradient
+descent may
 take an excessively long time to run (since we are only moving a small distance
 ``down'' the gradient every iteration); if $\gamma$ is too large, then an
-iteration's step may ``overshoot'' the critical point and prevent convergence.
+iteration's step may ``overshoot'' the critical point.
 An entire literature has developed around the best way to select $\gamma$. The
 central insight that is common to most $\gamma$-selection methods is to treat it
 as a time-indexed rather than fixed hyperparameter, i.e., $\gamma^{(t)}$ rather
@@ -301,11 +319,11 @@ when close to the critical point (so as to avoid overshooting).
 
 Line search is one method for computing step size. As described in
 \cite{boyd2004convex}, there are two main variants: \textit{exact} and
-\textit{backtracking}. In exact line search, $\gamma$ is chosen to minimize $f$
-along the ray $\{x + \gamma \Delta x\}$, where $\gamma \in \mathbb{R}^+)$ and
+\textit{backtracking}. In exact line search, $\gamma^{(t)}$ is chosen to minimize $f$
+along the ray $\{x + \gamma^{(t)} \Delta x\}$, where $\gamma^{(t)} \in \mathbb{R}^+)$ and
 $\Delta x$ is the descent direction determined by SGD:
 \begin{equation}
-	\gamma = \argmin_{s \geq 0} f(x + s\Delta x)
+	\gamma^{(t)} = \argmin_{s \geq 0} f(x + s\Delta x)
 \end{equation}
 This obviously is an optimization problem in and of itself, and
 so it can be computationally impractical to add this burden in addition to the
@@ -315,7 +333,7 @@ computationally lighter. The backtracking algorithm takes two hyper-parameters
 $\alpha \in (0, 0.5)$ and $\beta \in (0, 1)$. It starts with an initial guess of
 $s^{(0)} = 1$, and then for every iteration $t$, updates $s := \beta t$. The
 algorithm stops when $f(x + s \Delta x) \leq f(x) + \alpha s \Delta f(x)^T
-\Delta x$, and the final value of $s$ is taken as $\gamma$. 
+\Delta x$, and the final value of $s$ is taken as $\gamma^{(t)}$. 
 
 \cite{bottou2012stochastic} advocates using learning rates of the form
 $\gamma^{(t)} = \gamma^{(0)}(1 + \gamma^{(0)}\lambda t)^{-1}$. When the Hessian
@@ -340,12 +358,15 @@ convex. Although this is a necessary condition for some proofs of SGD's
 correctness, SGD is widely used in applications---most prominently, neural
 networks and deep
 learning---where this assumption is not
-always true (as covered in more detail in CHAPTER X). In such settings, it is
-possible that there are multiple local minima. The challenge for SGD is
+always true. In such settings, it is
+possible that there are multiple local minima, and/or that there are areas where
+the surface curves much more steeply in one dimension than another. The challenge for SGD is
 how to avoid getting ``stuck'' in these local ravines and continue iterating
-until the true global minimum is achieved.
+until the true global minimum is achieved. Even if there is no pathological
+curvature, incorporating information about the local topology may result in more
+efficient algorithms and faster convergence.
 
-Momentum---also called acceleration---is a common technique for avoiding this. As outlined in
+Momentum---also called acceleration---is a common modification of GD. As outlined in
 \cite{rumelhart1986general} and 
 \cite{qian1999momentum}, we add a new acceleration term to the familiar GD
 equation. Let $z^{(t+1)} = \alpha z^{(t)} + \nabla f(w^{(t)})$. GD with
@@ -356,37 +377,128 @@ momentum then is:
 \end{equation}
 
 Now, the weight vector obtained for the current timestep depends both on the
-current gradient \textit{and the gradient of the previous time-step}.
-Intuitively, without acceleration, SGD tends to oscillate within a ravine
-because the gradient is dominated by the steep curves on either side of the
-ravine; acceleration helps point the descent along the shallower curve leading
-out of the ravine. \cite{nesterov} provides another popular implementation of
-acceleration.
-\cite{polyak1992acceleration}
+current gradient \textit{and the update of the previous time-step}, with the
+acceleration parameter $\alpha$ governing how much weight is given to the
+previous time-step. 
+This formulation leads to momentum: dimensions whose
+gradients point in the same direction have proportionally greater updates, while
+dimensions whose gradients exhibit strong curvature have proportionally
+lesser updates. The effect is to help stop (S)GD from oscillating in ravines and
+speed up convergence. There are many variations on acceleration, including
+Nesterov accelerated gradient (NAG) (\cite{nesterov}), Adam
+(\cite{kingma2014adam}), AdaGrad
+(\cite{duchi2011adaptive}), and AdaDelta (\cite{zeiler2012adadelta}).
 
 \subsubsection{Averaging}
 
-\subsubsection{Predictive Variance Reduction}
+Averaged SGD (ASGD)---to the author's knowledge first proposed in 
+\cite{polyak1992acceleration}---is another variation. Typically, we consider
+$\hat{w}$ (the optimal solution) to be that associated with the final iteration
+of SGD, when some stop condition is met. For example, in a situation where we
+run $N$ iterations before stopping, $\hat{w} = w^{(N)}$. In ASGD, we consider $\hat{w}$ 
+the average of $w$ across all iterations, i.e.
+\begin{equation}
+	\hat{w} = \bar{w} = \frac{1}{N} \sum_{t=1}^N w^{(t)}
+\end{equation}
+
+The value proposition of ASGD is that sometimes SGD will oscillate around the
+optimal solution. By taking the average across all updates, ASGD reduces this
+noise and is likely to give a solution closer to the optimum. More sophisticated
+versions of ASGD have been proposed in 
+\cite{zhang2004solving}
+and 
+\cite{xu2011towards}. 
+
+\subsubsection{Mini-batch}
+
+Mini-batch gradient descent (MGD) can be regarded as a mid-point between batch
+and stochastic gradient descent in that it uses more than one but less than all of
+the available observations. Suppose we have $n$ observations and divide them
+into $m$ groups called mini-batches, each of equal size $b=\frac{n}{m}$. Now, at
+every iteration $t$, randomly pick one of the mini-batches (all are equally
+likely to be chosen). For that mini-batch:
+
+\begin{equation}
+	w^{(t+1)} = w^{(t)} - \gamma \frac{1}{b} \sum_{i=1}^b \nabla f(w^{(t)})
+\end{equation}
+
+MGD iterates with $t$ and converges to $\hat{w}$ in the normal manner. Every
+update, a new $b$ is randomly chosen and the above algorithm iterated. 
+\cite{dekel2012optimal} and \cite{li2014efficient} analyze MGD's speed of
+convergence and suggest that has some advantageous qualities for
+parallelization, a topic that is explained in more depth in the following
+subsection.
 
 \subsubsection{Parallelization}
 
-SGD is commonly used in large-$n$, computationally demanding applications. Thus,
+SGD is commonly used in large-$n$ applications. Thus,
 even though SGD is a computational improvement over batch GD, there has been
-interest in whether SGD can be made even faster by parallelizing it.
-\cite{zinkevich2010parallelized} present novel algorithms for doing so. The
-actual algorithms are strikingly simple; their proof is highly technical and
-omitted here.
+interest in whether SGD can be made even faster by parallelizing it. As
+background, typical computer applications are serial: problems are broken
+down into a discrete series of instructions that are executed one after another
+on a single processor. Parallel computing calls for breaking down problems into discrete parts that can
+be solved concurrently and are executed simultaneously on multiple processors
+(\cite{barney2010introduction}).
+There are many paradigms of parallel computing but a useful high-level
+distinction is between shared memory, in which all processors share a common
+address space, and distributed memory, in which each processor or group of processors
+has its own address space. The latter has become increasingly popular in
+industry via Apache Hadoop and associated projects (e.g. Spark). Distributed
+memory applications often require very complex computing strategies for how to combine the
+work of many processors without a shared memory space into a single coherent answer.
 
-The parallelization technique essentially is averaging. In line with previous
-notation, suppose we have fixed learning rate $\gamma$, 
+This background helps to emphasize the novelty of the parallel
+implementation of SGD proposed in \cite{zinkevich2010parallelized}. Though backed
+by highly technical proofs, the actual algorithm is strikingly simple. Suppose we have $N$ processors. We seek to
+conduct SGD to estimate $w$ across $n$ observations with fixed learning rate
+$\gamma$ for some fixed number of steps $T$.
 
-Advantages
+\medskip
+
+\begin{algorithm}[H]
+	Define $T = \frac{n}{N}$\;
+
+	Randomly partition examples, giving $T$ to each machine;\
+
+	\ForAll{$i \in \{1 \ldots N\}$}{
+		Randomly shuffle data on machine $i$\;
+
+		Initialize $w^{i, (0)}=0$\;
+
+		\ForAll{$t \in \{1 \ldots T\}$}{
+			
+	$w^{i, (t+1)} = w^{i, (t)} - \gamma \nabla f(w^{i, (t)})$ \;
+			}
+		}
+	Aggregate from all computers: $\bar{w} = \frac{1}{N} \sum_{i=1}^{N}
+	w^{i, (T)}$ \;
+
+	\Return{$\bar{w}$}
+
+	\caption{Parallel SGD}
+\end{algorithm}
+
+\medskip
+
+Zinkevich et al. show that this algorithm has a number of desirable properties.
+It requires no communication between machines until the end; asymptotically, the
+error approaches zero; and, the amount of time required is independent of the number of
+examples (though this is an inherent property of SGD and is not unique to their
+algorithm). Further improvements have been proposed: e.g., the Hogwild algorithm
+presented in \cite{recht2011hogwild} deals with locking issues in parallel
+computation of SGD.
 
 \section{Applications}
 
-\cite{shalev2011pegasos}
+In theory, SGD is agnostic to $f$ and $w$ as long as they meet required
+assumptions, and so can be used in many different areas of optimization. In
+practice, SGD is overwhelmingly popular in the statistical learning
+field for estimating weight coefficients in predictive models. 
+This section lays out some reasons for SGD's popularity; conducts a case study
+using SGD; and identifies notable real-world applications of SGD. 
+
 \subsection{SGD and Statistical Learning}
-\cite{dal2015calibrating}
+\cite{shalev2011pegasos}
 
 Loosely following the set-up of , consider a typical supervised classification problem. We have
 feature matrix $\bm{X}_{n \times D, n \in \mathbb{R}^n, D \in \mathbb{R}^D}$ (corresponding to $n$ observations and $D$
@@ -435,6 +547,57 @@ single randomly chosen observation $i$ at each iteration $t$.
 	\bm{w}_{t+1} = \bm{w}_t - \gamma 
 	\nabla L(Y_i, f_{\bm{w}_t}(\bm{X}_i))
 \end{equation}
+
+\subsection{Case Study}
+
+\cite{dal2015calibrating}
+
+\subsection{Real-World Applications}
+
+If a Silicon Valley press release uses words like ``artificial intelligence'',
+``machine learning'', and ``big data'' to describe a new product or service, it very likely
+uses SGD in some way. Such is the extent of SGD's popularity. 
+Below is a list of particularly prominent examples of SGD's practical
+applications.
+
+\begin{itemize}
+	\item \textbf{ImageNet} is a dataset consisting of millions
+		of high-resolution, labeled images. The
+		ImageNet Large Scale Visual Recognition Competition (ILSVRC) is
+		an annual contest in which competing teams train models for
+		automatic image classification. The submission of \cite{krizhevsky2012imagenet} 
+		for the 2012 ILSVRC used convolutional neural
+		nets to achieve dramatic reduction in error rates and is
+		one of the most cited machine learning papers of all time. Per the aforementioned paper: ``We
+		trained our models using stochastic gradient descent with a
+		batch size of 128 examples, momentum of 0.9, and weight decay of
+		0.00005.''
+	\item Google's \textbf{AlphaGo} software. AlphoGo applies deep learning to the
+		board game of Go and has received extensive attention for its
+		ability to defeat even top human players (e.g., twice making the
+		cover of \textit{Nature} with \cite{silver2016mastering} and
+		\cite{silver2017mastering}). Google's slides from the 2016
+		International Conference on Machine Learning (ICML) indicate
+		that SGD is used in every stage of the
+		model: supervised learning of policy networks, reinforcement
+		learning of policy networks, and reinforcement learning of value
+		networks.
+	\item The \textbf{Netflix Grand Prize} was a competition hosted by
+		Netflix in which teams competed to develop models for
+		using Netflix data to make better movie recommendations
+		(\cite{bennett2007netflix}). Most of the top entries used
+		SGD for estimating model coefficients; for example,
+		\cite{koren2009bellkor} states that ``in order to learn the
+		involved parameters$\ldots$ learning is done by a stochastic
+		gradient descent algorithm running for 30 iterations.'' 
+	\item Google's \textbf{word2vec} natural language processing (NLP)
+		software powers Google Translate, among other applications.
+		\cite{mikolov2013distributed} and \cite{rong2014word2vec}
+		discuss the continuous bag of words (CBOW) model underlying
+		word2vec and how SGD is used to estimate coefficients
+		in the model.
+\end{itemize}
+
 \section{Conclusion}
 
 \printbibliography
