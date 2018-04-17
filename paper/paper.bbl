@@ -266,54 +266,6 @@
       \field{pages}{273\bibrangedash 297}
       \range{pages}{25}
     \endentry
-    \entry{dal2015calibrating}{inproceedings}{}
-      \name{author}{4}{}{%
-        {{uniquename=0,uniquepart=base,hash=97c4ef92360a3c272fda71fa1ea092ca}{%
-           family={Dal\bibnamedelima Pozzolo},
-           familyi={D\bibinitperiod\bibinitdelim P\bibinitperiod},
-           given={Andrea},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=767953319ebde76ca21aed2bb2b88b7a}{%
-           family={Caelen},
-           familyi={C\bibinitperiod},
-           given={Olivier},
-           giveni={O\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=4966bdaabc544a54591550f8c357db81}{%
-           family={Johnson},
-           familyi={J\bibinitperiod},
-           given={Reid\bibnamedelima A},
-           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=3bb195d6ea6db0c1df418e2f92f319fc}{%
-           family={Bontempi},
-           familyi={B\bibinitperiod},
-           given={Gianluca},
-           giveni={G\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{organization}{1}{%
-        {IEEE}%
-      }
-      \strng{namehash}{a493c9f5ed5bb5b0e6b32374cf6498be}
-      \strng{fullhash}{691d836ca739dd71ea526f2148b8a87b}
-      \strng{bibnamehash}{a493c9f5ed5bb5b0e6b32374cf6498be}
-      \strng{authorbibnamehash}{a493c9f5ed5bb5b0e6b32374cf6498be}
-      \strng{authornamehash}{a493c9f5ed5bb5b0e6b32374cf6498be}
-      \strng{authorfullhash}{691d836ca739dd71ea526f2148b8a87b}
-      \field{sortinit}{D}
-      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Computational Intelligence, 2015 IEEE Symposium Series on}
-      \field{title}{Calibrating probability with undersampling for unbalanced classification}
-      \field{year}{2015}
-      \field{pages}{159\bibrangedash 166}
-      \range{pages}{8}
-    \endentry
     \entry{dekel2012optimal}{article}{}
       \name{author}{4}{}{%
         {{uniquename=0,uniquepart=base,hash=4193b7cb980580af02d0068750072bba}{%

@@ -504,17 +504,17 @@ predict a particular observation's label $Y_i$ using that observation's features
 $\bm{X}_i$. To emphasize the utility of SGD, suppose that both $n$ and $D$ are
 very large.
 We have a hypothesis class $\mathcal{F}$ consisting of
-various functions $f_{\bm{w}}(\bm{X}_i) \in \mathcal{F}$ parametrized by weight
-vector $\bm{w}$. We have convex loss function $L(Y_i, f_{\bm{w}}(\bm{X}_i))$ that
+various functions $f(\bm{w}, \bm{X}_i) \in \mathcal{F}$ parametrized by weight
+vector $\bm{w}$. We have convex loss function $L(Y_i, f(\bm{w}, \bm{X}_i))$ that
 expresses the cost of misclassification. 
-We will consider the optimal function $\hat{f}_{\bm{w}}(\bm{X}_i) \in F$ 
+We will consider the optimal function
 that which minimizes empirical risk over all observations: $\frac{1}{n}
-\sum_{i=1}^n L(Y_i, f_{\bm{w}}(\bm{X}_i))$.
+\sum_{i=1}^n L(Y_i, f(\bm{w}, \bm{X}_i))$.
 Denote $\hat{\bm{w}}$ the weight coefficients of this optimal function. We thus
 have:
 
 \begin{equation}
-	\hat{\bm{w}} = \argmin_{\bm{w}}\frac{1}{n} \sum_{i=1}^n L(Y_i, f_{\bm{w}}(\bm{X}_i))
+	\hat{\bm{w}} = \argmin_{\bm{w}}\frac{1}{n} \sum_{i=1}^n L(Y_i, f(\bm{w}, \bm{X}_i))
 \end{equation}
 
 How shall we solve this optimization problem? Newton's method requires
@@ -523,7 +523,7 @@ this is inconvenient to compute. We could try batch gradient descent:
 
 \begin{equation}
 	\bm{w}^{(t+1)} = \bm{w}^{(t)} - \gamma \frac{1}{n}\sum_{i=1}^n
-	\nabla_{\bm{w}} L(Y_i, f_{\bm{w}^{(t)}}(\bm{X}_i))
+	\nabla_{\bm{w}} L(Y_i, f(\bm{w}^{(t)}, \bm{X}_i))
 \end{equation}
 
 But, in line with our analysis in section 2.2.2, batch GD requires evaluating
@@ -532,7 +532,7 @@ large, this is computationally inconvenient. Rather, we use SGD to evaluate only
 a single randomly chosen observation per iteration.
 
 \begin{equation}
-	\bm{w}^{(t+1)} = \bm{w}^{(t)} - \nabla_{\bm{w}} L(Y_i, f_{\bm{w}^{(t)}}(\bm{X}_i))
+	\bm{w}^{(t+1)} = \bm{w}^{(t)} - \nabla_{\bm{w}} L(Y_i, f(\bm{w}^{(t)}, \bm{X}_i))
 \end{equation}
 
 Per previous analyses we know that this approach will converge to an arbitrarily
@@ -541,20 +541,157 @@ degree of precision in less time than plain gradient descent; does not
 necessarily require computing the Hessian; and can be parallelized across many
 machines. These attractive qualities make SGD well-represented in almost all areas of
 machine learning. In the following subsection, we take a closer look at one
-particularly prominent applications, support vector machines.
+particularly prominent application, support vector machines.
 
 \subsubsection{Support vector machines}
 
 Originally proposed by \cite{boser1992training} and \cite{cortes1995support}, support vector machines (SVM)
 are among the best supervised learning algorithms. Here we set up the SVM
+optimization
 problem and then show how SGD can be used to solve it.
 
-\cite{shalev2011pegasos}
+Suppose we have labels $\bm{Y}$ with $Y_i \in \{-1,1\}$ and features $\bm{X}_{n
+\times D}$, corresponding to $n$ observations and $D$ features.
+We want to construct a decision hyperplane 
+$\langle \bm{w}, \bm{X} \rangle + w_0= 0$. $\bm{w}$ is
+a weight vector that we apply to $\bm{X}$. If for a particular observation $i$
+$\langle \bm{w}, \bm{X}_i \rangle + w_0 < 0$, we
+classify $Y_i=-1$. Similarly, if $\langle \bm{w}, \bm{X}_i \rangle + w_0 > 0$, we
+classify $Y_i = 1$. We introduce slack variables $\xi_i$ to allow some
+violation of the margin, as well as a cost parameter $C$ to control them. The
+primal soft-margin SVM problem thus is:
 
-\subsection{Case Study}
+\begin{equation}
+	\min_{\bm{w} \in \mathbb{R}^D, w_0 \in \mathbb{R}, \bm{\xi} \in \mathbb{R}^n} 
+	\frac{1}{2} ||\bm{w}||^2 + C \frac{1}{n} \sum_{i=1}^n \xi_i
+\end{equation}
+$$
+s.t. \quad Y_i(\langle \bm{w}, \bm{X}_i \rangle + w_0) \geq 1 - \xi_i 
+$$
+$$
+\quad \xi_i \geq 0 
+$$
 
-\cite{dal2015calibrating}
+This problem can be recharacterized through the lens of empirical risk
+minimization. Suppose we obtain an optimal answer $\bm{w}^*, w_0^*, \bm{\xi}^*$. 
+Then, it makes sense that:
 
+$$
+\xi_i^* = \max(0, 1 - Y_i(\langle \bm{w}, \bm{X}_i \rangle + w_0)) 
+$$
+
+We now can recharacterize the problem as:
+
+$$
+\min_{\bm{w}, w_0} C \frac{1}{n} \sum_{i=1}^n \left[ \max(0, 1 - Y_i(\langle \bm{w},
+\bm{X}_i \rangle +
+w_0)) + \frac{1}{2}||\bm{w}||^2 \right]
+$$
+
+This is equivalent to:
+\begin{equation}
+\min_{f \in \mathcal{F}} \frac{1}{n} \sum_{i=1}^n \left[ L(Y_i, \bm{w},
+	\bm{X}_i) + \frac{\lambda}{2}
+||\bm{w}||^2 \right]
+\end{equation}
+
+Where $\mathcal{F}$ is the linear hypothesis class, $L$ is the hinge loss
+
+$$
+L_{\mathrm{hinge}}(Y_i, \bm{w}, \bm{X}_i) = \max(0, 1 - Y_i
+f(\bm{w}, \bm{X}_i))
+$$
+$$
+f(\bm{w}, \bm{X}_i) = \bm{w}^T\bm{X}_i + w_0
+$$
+
+and
+$\lambda=\frac{1}{2C}$. We use $\frac{\lambda}{2}$ for reasons of
+convenience. This problem can be approached in different ways;
+for example, it can be shown that the Lagrangian dual depends only on
+``support vectors'' (observations violating the margin), leading to useful
+data-reduction properties. Gradient descent is a
+popular method to solve the primal formulation given here. First note
+that the hinge loss function is not differentiable. We must use a sub-gradient:
+
+\begin{equation}
+	\frac{\partial L}{\partial \bm{w}} = 
+	\begin{cases}
+		-Y_i \bm{X}_i \quad \mathrm{if} \hspace{0.2em} Y_if(\bm{w}, \bm{X}_i) < 1\\
+		0 \quad \mathrm{otherwise} \\
+	\end{cases}
+\end{equation}
+
+The basic batch GD approach
+
+$$
+	\bm{w}^{(t+1)} = \bm{w}^{(t)} - \gamma \frac{1}{n} \sum_{i=1}^n
+	\nabla_{\bm{w}} \left[ L(Y_i, \bm{w},
+	\bm{X}_i) + \frac{\lambda}{2}
+||\bm{w}||^2\right]
+$$
+
+$$
+	= \bm{w}^{(t)} - \gamma \frac{1}{n} \sum_{i=1}^n
+	 \left[ L\nabla_{\bm{w}} (Y_i, \bm{w},
+	\bm{X}_i) + \lambda \bm{w} \right]
+$$
+thus becomes
+\begin{equation}
+	\bm{w}^{(t+1)} = 
+	\begin{cases}
+		\bm{w}^{(t)} - \gamma \frac{1}{n} \sum_{i=1}^n
+		\left[
+			\lambda \bm{w}^{(t)} - Y_i\bm{X}_i
+		\right]
+		\quad \mathrm{if} \hspace{0.2em} Y_if(\bm{w}^{(t)}, \bm{X}_i) < 1 \\
+
+		\bm{w}^{(t)} - \gamma \frac{1}{n} \sum_{i=1}^n
+		\lambda \bm{w}^{(t)} 
+		\quad \textrm{otherwise} \\
+
+	\end{cases}
+\end{equation}
+
+As previously discussed, batch GD is computationally expensive and
+so for large $n$ we prefer SGD, selecting only a single randomly chosen
+observation per iteration.
+
+\begin{equation}
+	\bm{w}^{(t+1)} = 
+	\begin{cases}
+		\bm{w}^{(t)} - \gamma 
+		\left(
+			\lambda \bm{w}^{(t)} - Y_i\bm{X}_i
+		\right)
+		\quad \mathrm{if} \hspace{0.2em} Y_if(\bm{w}^{(t)}, \bm{X}_i) < 1 \\
+
+		\bm{w}^{(t)} - \gamma 
+		\lambda \bm{w}^{(t)} 
+		\quad \textrm{otherwise} \\
+
+	\end{cases}
+\end{equation}
+
+There have been further efforts to improve SGD for the specific application of
+SVM, most notably \cite{shalev2011pegasos}.
+
+\subsection{Simulation Case Study}
+
+Simulation provides a useful example of the computational advantages of SGD for
+estimating coefficients in a predictive model. This section outlines such a
+brief simulation, annotated with Python code.
+
+Suppose we have feature matrix $\bm{X}_{n \times D}$ with $n=10^6$ and $D=1$
+and outcome variable $\bm{Y}_i \sim N(\bm{X}_i,1)$. 
+
+We seek to estimate coefficients in a
+regression equation of the form $y = \beta_0 + \beta_1 X$ by ordinary least
+squares. We do so via two
+competing methods: solving directly via $\hat{\bm{\beta}} =
+(\bm{X}'\bm{X})^{-1}\bm{X}'\bm{Y}$ and iterative estimation via SGD.
+
+We compare the estimated coefficients and run-time.
 \subsection{Real-World Applications}
 
 If a Silicon Valley press release uses words like ``artificial intelligence'',
