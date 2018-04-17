@@ -494,20 +494,19 @@ In theory, SGD is agnostic to $f$ and $w$ as long as they meet required
 assumptions, and so can be used in many different areas of optimization. In
 practice, SGD is overwhelmingly popular in the statistical learning
 field for estimating weight coefficients in predictive models. 
-This section lays out some reasons for SGD's popularity; conducts a case study
-using SGD; and identifies notable real-world applications of SGD. 
 
 \subsection{SGD and Statistical Learning}
-\cite{shalev2011pegasos}
 
-Loosely following the set-up of , consider a typical supervised classification problem. We have
-feature matrix $\bm{X}_{n \times D, n \in \mathbb{R}^n, D \in \mathbb{R}^D}$ (corresponding to $n$ observations and $D$
+Consider a typical supervised classification problem. We have
+feature matrix $\bm{X}_{n \times D}$ (corresponding to $n$ observations and $D$
 features) and labels $\bm{Y}_{n \times 1}, Y_i \in \{-1, 1\}$. The goal is to
-predict a particular observation's label $Y_i$ using that observation's features $\bm{X}_i$. 
+predict a particular observation's label $Y_i$ using that observation's features
+$\bm{X}_i$. To emphasize the utility of SGD, suppose that both $n$ and $D$ are
+very large.
 We have a hypothesis class $\mathcal{F}$ consisting of
 various functions $f_{\bm{w}}(\bm{X}_i) \in \mathcal{F}$ parametrized by weight
-vector $\bm{w}$. We have loss function $L(Y_i, f_{\bm{w}}(\bm{X}_i))$ that
-expresses the cost of mis-classification. Assume for now that $L$ is convex. 
+vector $\bm{w}$. We have convex loss function $L(Y_i, f_{\bm{w}}(\bm{X}_i))$ that
+expresses the cost of misclassification. 
 We will consider the optimal function $\hat{f}_{\bm{w}}(\bm{X}_i) \in F$ 
 that which minimizes empirical risk over all observations: $\frac{1}{n}
 \sum_{i=1}^n L(Y_i, f_{\bm{w}}(\bm{X}_i))$.
@@ -518,35 +517,39 @@ have:
 	\hat{\bm{w}} = \argmin_{\bm{w}}\frac{1}{n} \sum_{i=1}^n L(Y_i, f_{\bm{w}}(\bm{X}_i))
 \end{equation}
 
-Because $L$ is convex, there is one critical point,
-it is the global minimum, and it is located where the gradient of the loss
-function with respect to $\bm{w}$ is zero. GD is an iterative
-algorithm that can be used to numerically approximate this point. We first state
-it in a general form, and then adapt it to the specific problem outlined above.
+How shall we solve this optimization problem? Newton's method requires
+calculating the Hessian, which will have $D^2$ entries; since $D$ is large,
+this is inconvenient to compute. We could try batch gradient descent:
 
 \begin{equation}
-	\bm{w}_{t+1} = \bm{w}_t - \gamma \frac{1}{n}\sum_{i=1}^n
-	\nabla L(Y_i, f_{\bm{w}_t}(\bm{X}_i))
+	\bm{w}^{(t+1)} = \bm{w}^{(t)} - \gamma \frac{1}{n}\sum_{i=1}^n
+	\nabla_{\bm{w}} L(Y_i, f_{\bm{w}^{(t)}}(\bm{X}_i))
 \end{equation}
 
-$t$ refers to iterations. $\gamma$ is a parameter controlling the step
-size (also called ``learning rate''). Assume for now that $\gamma$ is fixed. For
-$t=0$ we must supply an initial starting guess, $\bm{w}_0$.  
+But, in line with our analysis in section 2.2.2, batch GD requires evaluating
+the gradient over every observation $i \leq n$ for every iteration $t$. Since we have defined $n$ to be
+large, this is computationally inconvenient. Rather, we use SGD to evaluate only
+a single randomly chosen observation per iteration.
 
 \begin{equation}
-	\left|\frac{1}{n}\sum_{i=1}^n \nabla L(\bm{Y}_i,
-	f_{\bm{w}_t}(\bm{X}_i))\right| \leq \epsilon
+	\bm{w}^{(t+1)} = \bm{w}^{(t)} - \nabla_{\bm{w}} L(Y_i, f_{\bm{w}^{(t)}}(\bm{X}_i))
 \end{equation}
 
-Note that the batch GD algorithm presented in (2) requires evaluating the
-gradient for every single observation $i$. In a large-$n$ dataset, this can be
-computationally infeasible. SGD's innovation is to instead evaluate only a
-single randomly chosen observation $i$ at each iteration $t$.
+Per previous analyses we know that this approach will converge to an arbitrarily
+good answer (if certain assumptions are met); will converge to that arbitrary
+degree of precision in less time than plain gradient descent; does not
+necessarily require computing the Hessian; and can be parallelized across many
+machines. These attractive qualities make SGD well-represented in almost all areas of
+machine learning. In the following subsection, we take a closer look at one
+particularly prominent applications, support vector machines.
 
-\begin{equation}
-	\bm{w}_{t+1} = \bm{w}_t - \gamma 
-	\nabla L(Y_i, f_{\bm{w}_t}(\bm{X}_i))
-\end{equation}
+\subsubsection{Support vector machines}
+
+Originally proposed by \cite{boser1992training} and \cite{cortes1995support}, support vector machines (SVM)
+are among the best supervised learning algorithms. Here we set up the SVM
+problem and then show how SGD can be used to solve it.
+
+\cite{shalev2011pegasos}
 
 \subsection{Case Study}
 

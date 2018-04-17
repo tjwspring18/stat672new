@@ -93,6 +93,48 @@
       \field{pages}{35}
       \range{pages}{1}
     \endentry
+    \entry{boser1992training}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=a196e43cf6775c3a36bbbb62e2d3cd70}{%
+           family={Boser},
+           familyi={B\bibinitperiod},
+           given={Bernhard\bibnamedelima E},
+           giveni={B\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=66a49f34048b44af9181a0da136c0d6f}{%
+           family={Guyon},
+           familyi={G\bibinitperiod},
+           given={Isabelle\bibnamedelima M},
+           giveni={I\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=c2b3e05872463585b4be6aab10d10d63}{%
+           family={Vapnik},
+           familyi={V\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{8594a5316d09843be230a508500c8976}
+      \strng{fullhash}{8594a5316d09843be230a508500c8976}
+      \strng{bibnamehash}{8594a5316d09843be230a508500c8976}
+      \strng{authorbibnamehash}{8594a5316d09843be230a508500c8976}
+      \strng{authornamehash}{8594a5316d09843be230a508500c8976}
+      \strng{authorfullhash}{8594a5316d09843be230a508500c8976}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the fifth annual workshop on Computational learning theory}
+      \field{title}{A training algorithm for optimal margin classifiers}
+      \field{year}{1992}
+      \field{pages}{144\bibrangedash 152}
+      \range{pages}{9}
+    \endentry
     \entry{bottou2010large}{incollection}{}
       \name{author}{1}{}{%
         {{uniquename=0,uniquepart=base,hash=4437d12f87aa10b0c95e9e587862f7ab}{%
@@ -185,6 +227,44 @@
       \field{labeltitlesource}{title}
       \field{title}{Convex optimization}
       \field{year}{2004}
+    \endentry
+    \entry{cortes1995support}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=17acda211a651e90e228f1776ee07818}{%
+           family={Cortes},
+           familyi={C\bibinitperiod},
+           given={Corinna},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=c2b3e05872463585b4be6aab10d10d63}{%
+           family={Vapnik},
+           familyi={V\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{4c67d5268f413e83454c8adc14ab43c3}
+      \strng{fullhash}{4c67d5268f413e83454c8adc14ab43c3}
+      \strng{bibnamehash}{4c67d5268f413e83454c8adc14ab43c3}
+      \strng{authorbibnamehash}{4c67d5268f413e83454c8adc14ab43c3}
+      \strng{authornamehash}{4c67d5268f413e83454c8adc14ab43c3}
+      \strng{authorfullhash}{4c67d5268f413e83454c8adc14ab43c3}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Machine learning}
+      \field{number}{3}
+      \field{title}{Support-vector networks}
+      \field{volume}{20}
+      \field{year}{1995}
+      \field{pages}{273\bibrangedash 297}
+      \range{pages}{25}
     \endentry
     \entry{dal2015calibrating}{inproceedings}{}
       \name{author}{4}{}{%
@@ -855,7 +935,7 @@
       \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{nature}
+      \field{journaltitle}{Nature}
       \field{number}{7587}
       \field{title}{Mastering the game of Go with deep neural networks and tree search}
       \field{volume}{529}
