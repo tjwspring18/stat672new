@@ -19,41 +19,6 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
-    \entry{barney2010introduction}{misc}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=c9b69adc8d69f268293936288c9c1458}{%
-           family={Barney},
-           familyi={B\bibinitperiod},
-           given={Blaise},
-           giveni={B\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{institution}{1}{%
-        {Lawrence Livermore National Laboratory}%
-      }
-      \list{organization}{1}{%
-        {Lawrence Livermore National Laboratory}%
-      }
-      \list{publisher}{1}{%
-        {Lawrence Livermore National Laboratory}%
-      }
-      \strng{namehash}{b82263c8fa6ddb3becabb3b0f13f1ebc}
-      \strng{fullhash}{b82263c8fa6ddb3becabb3b0f13f1ebc}
-      \strng{bibnamehash}{b82263c8fa6ddb3becabb3b0f13f1ebc}
-      \strng{authorbibnamehash}{b82263c8fa6ddb3becabb3b0f13f1ebc}
-      \strng{authornamehash}{b82263c8fa6ddb3becabb3b0f13f1ebc}
-      \strng{authorfullhash}{b82263c8fa6ddb3becabb3b0f13f1ebc}
-      \field{sortinit}{B}
-      \field{sortinithash}{276475738cc058478c1677046f857703}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Introduction to parallel computing}
-      \field{year}{2010}
-    \endentry
     \entry{bennett2007netflix}{inproceedings}{}
       \true{moreauthor}
       \true{morelabelname}

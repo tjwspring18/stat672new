@@ -4,6 +4,7 @@
 \usepackage{amssymb}
 \usepackage{bm}
 \usepackage{graphicx}
+
 \usepackage[linesnumbered, lined, boxed]{algorithm2e}
 \RestyleAlgo{boxruled}
 
@@ -12,6 +13,17 @@
 
 \usepackage[citestyle=authoryear]{biblatex}
 \addbibresource{paper.bib}
+
+\usepackage{listings}
+\lstset{frame = single,
+breakatwhitespace=false,
+breaklines=true,
+numbersep=5pt,
+showspaces=false,
+showtabs=false,
+tabsize=2,
+basicstyle=\footnotesize}
+
 
 \author{Tom Wallace}
 
@@ -27,10 +39,11 @@
 
 This paper is divided into four sections. The remainder of this
 \textbf{Introduction} section gives intuitive motivation for stochastic gradient
-descent (SGD). The \textbf{Method and Theory} section more rigorously presents the
-mathematics of SGD and some of its notable properties. The
-\textbf{Applications} sections highlights the real-world settings and uses of SGD,
-including a case study data analysis. The \textbf{Conclusion} section summarizes
+descent (SGD). The \textbf{Method and Theory} section more rigorously derives
+SGD, outlines convergence properties, and reviews extensions to the basic
+algorithm. The \textbf{Applications} sections highlights SGD's role in
+statistical learning, including a simulation analysis to demonstrate SGD's utility
+in large-$n$ settings. The \textbf{Conclusion} section summarizes
 overall findings.
 
 \subsection{Motivation}
@@ -433,22 +446,8 @@ subsection.
 
 SGD is commonly used in large-$n$ applications. Thus,
 even though SGD is a computational improvement over batch GD, there has been
-interest in whether SGD can be made even faster by parallelizing it. As
-background, typical computer applications are serial: problems are broken
-down into a discrete series of instructions that are executed one after another
-on a single processor. Parallel computing calls for breaking down problems into discrete parts that can
-be solved concurrently and are executed simultaneously on multiple processors
-(\cite{barney2010introduction}).
-There are many paradigms of parallel computing but a useful high-level
-distinction is between shared memory, in which all processors share a common
-address space, and distributed memory, in which each processor or group of processors
-has its own address space. The latter has become increasingly popular in
-industry via Apache Hadoop and associated projects (e.g. Spark). Distributed
-memory applications often require very complex computing strategies for how to combine the
-work of many processors without a shared memory space into a single coherent answer.
-
-This background helps to emphasize the novelty of the parallel
-implementation of SGD proposed in \cite{zinkevich2010parallelized}. Though backed
+interest in whether SGD can be made even faster by parallelizing it.
+\cite{zinkevich2010parallelized} present a novel technique for doing so. Though backed
 by highly technical proofs, the actual algorithm is strikingly simple. Suppose we have $N$ processors. We seek to
 conduct SGD to estimate $w$ across $n$ observations with fixed learning rate
 $\gamma$ for some fixed number of steps $T$.
@@ -678,19 +677,46 @@ SVM, most notably \cite{shalev2011pegasos}.
 
 \subsection{Simulation Case Study}
 
-Simulation provides a useful example of the computational advantages of SGD for
-estimating coefficients in a predictive model. This section outlines such a
-brief simulation, annotated with Python code.
+Simulation provides a useful example of the computational advantages of SGD. 
+Suppose we have one-dimensional feature matrix $\bm{X}$ with $X_i \sim N(0, 1)$ 
+and outcome variable $\bm{Y}$ with the
+relationship $Y_i \sim (0.5 X_i) + \epsilon$. There are 10 million observations.
 
-Suppose we have feature matrix $\bm{X}_{n \times D}$ with $n=10^6$ and $D=1$
-and outcome variable $\bm{Y}_i \sim N(\bm{X}_i,1)$. 
+\begin{lstlisting}[language=Python]
+import numpy as np
+X = np.random.randn(int(10e6))
+Y = (0.5 * X) + np.randn(1)
+\end{lstlisting}
 
-We seek to estimate coefficients in a
-regression equation of the form $y = \beta_0 + \beta_1 X$ by ordinary least
-squares. We do so via two
-competing methods: solving directly via $\hat{\bm{\beta}} =
-(\bm{X}'\bm{X})^{-1}\bm{X}'\bm{Y}$ and iterative estimation via SGD.
-
+We seek to estimate coefficients in a regression equation of the form $y = \beta_0 + \beta_1 X$ by ordinary least
+squares. We do so via two competing methods: batch GD and SGD.
+\begin{lstlisting}[language=Python]
+def GD(X, Y, gamma, epsilon, maxiter):
+	n = Y.size
+	w = 1 #initial guess
+	for i in range(maxiter):
+		Yhat = np.dot(X, w)
+		update = w - gamma * (np.dot(X.T, Yhat - Y) / n)
+		if (abs(w - update) < epsilon): 
+			break
+		else:
+			w = update
+	return(w)
+\end{lstlisting}
+\begin{lstlisting}[language=Python]
+def SGD(X, Y, gamma, epsilon, maxiter):
+	n = Y.size
+	w = 1 #initial guess
+	for i in range(maxiter):
+		j = np.random.randint(0, n)
+		Yhat = w * X[j]
+		update = w - gamma * ((Yhat - Y[j])*X[j])
+		if (abs(w - update) < epsilon):
+			break
+		else:
+			w = update
+	return(w)
+\end{lstlisting}
 We compare the estimated coefficients and run-time.
 \subsection{Real-World Applications}
 
