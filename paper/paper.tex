@@ -57,7 +57,7 @@ Before covering exactly how SGD works, we contextualize its advantages in these 
 Consider a feature matrix $\bm{X}$ and outcome variable $\bm{Y}$, and the task
 of fitting coefficients in a model to predict $Y_i$ based on $\bm{X}_i$. 
 Assuming that particular model elements follow a
-particular distribution aids the estimation of coefficients. 
+known statistical distribution aids the estimation of coefficients. 
 For example, assumptions in ordinary least squares (OLS)
 regression---assumptions that readers almost certainly are familiar with and so will not be
 repeated here---allow a closed form solution, $\hat{\bm{\beta}} = (\bm{X}'\bm{X})^{-1}\bm{X}'\bm{Y}$.
@@ -74,12 +74,13 @@ $$
 \bm{H}^{-1}(\hat{\bm{\beta}}^{(t)})\bm{J}(\hat{\bm{\beta}}^{(t)})
 $$
 
-$(t)$ refers to a particular iteration, $\bm{J}$ is the Jacobian,
-and $\bm{H}$ is the Hessian. The practicality of Newton-Raphson thus depends on whether it is convenient to
+$(t)$ refers to a particular iteration, $\bm{J}$ is the Jacobian of the
+log likelihood function $l$,
+and $\bm{H}$ is the Hessian of $l$. The practicality of Newton-Raphson thus depends on whether it is convenient to
 find $\bm{J}$ and in particular $\bm{H}$. It is convenient for logistic regression
 because parametric and independent-and-identically-distributed (IID) assumptions
 mean $l$ is a simple sum of the log probability distribution
-function for each observation. We ``know'' (assume) the form of this PDF and so are
+function (PDF) for each observation. We ``know'' (assume) the form of this PDF and so are
 confident that the second derivative exists and is not onerous.
 In non-parametric settings, we often cannot be so certain and face the possibility of
 $\bm{H}$ being non-existent or cumbersome.
@@ -155,7 +156,7 @@ problem is:
 	\min_w  \frac{1}{n} \sum_{i=1}^n f(w, X_i)
 \end{equation}
 
-We could apply the GD algorithm above to find the optimal $w$.
+We could apply the GD algorithm above to find $\hat{w}$.
 
 \begin{equation}
 	w^{(t+1)} = w^{(t)} - \gamma \frac{1}{n} \sum_{i=1}^n \nabla f(w^{(t)},
@@ -237,7 +238,7 @@ decreasing objective function value until it reaches the point where the
 gradient equals zero, which is the optimal value. A key caveat is an
 appropriately chosen $\gamma$, a point covered in more detail later.
 
-The above proof is for GD. A rigorous proof is not given for why SGD also
+The above proof is for GD. Proof is not given for why SGD also
 converges to the optimal value. Informally, we can note that the above proof
 says given infinite $t$ and appropriate $\gamma$, the iterative algorithm will
 always converge to the optimal value. SGD is doing the same thing as GD, 

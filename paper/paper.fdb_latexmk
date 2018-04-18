@@ -1,12 +1,12 @@
 # Fdb version 3
-["biber paper"] 1524067645 "paper.bcf" "paper.bbl" "paper" 1524069149
+["biber paper"] 1524067645 "paper.bcf" "paper.bbl" "paper" 1524090843
   "ascii input as UTF-8" 0 -1 0 ""
-  "paper.bcf" 1524069149 89782 971e542b7057db7dfc3fcdcff71dbc30 ""
+  "paper.bcf" 1524090843 89782 971e542b7057db7dfc3fcdcff71dbc30 ""
   "paper.bib" 1523927432 8234 7303f96efd51749bc59a4584dd10bfc4 ""
   (generated)
-  "paper.blg"
   "paper.bbl"
-["pdflatex"] 1524069147 "paper.tex" "paper.pdf" "paper" 1524069149
+  "paper.blg"
+["pdflatex"] 1524090841 "paper.tex" "paper.pdf" "paper" 1524090843
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1480098698 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1480098698 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1480098698 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -131,13 +131,13 @@
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1514125355 2589344 e3e8f289402fb761e5a9dc94a585dc77 ""
   "/usr/local/texlive/2017/texmf.cnf" 1514125340 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "img.png" 1523845137 96963 dcbdadd436b8337ced6c1d08d53a2b87 ""
-  "paper.aux" 1524069149 7881 af774679d3a2e19016796659d13b92c1 ""
+  "paper.aux" 1524090843 7881 af774679d3a2e19016796659d13b92c1 ""
   "paper.bbl" 1524067648 42158 e7acb2053ef06f0fbc6ac753326f4469 "biber paper"
-  "paper.run.xml" 1524069149 2310 03764d5e5630d6105f921d2870cad3c7 ""
-  "paper.tex" 1524069144 31330 6a5e08da36c416d9bb6861d2a29d6ff9 ""
+  "paper.run.xml" 1524090843 2310 03764d5e5630d6105f921d2870cad3c7 ""
+  "paper.tex" 1524090840 31368 ebd25a92afd07ab35e6a56e0a681a287 ""
   (generated)
-  "paper.log"
-  "paper.run.xml"
   "paper.aux"
-  "paper.bcf"
   "paper.pdf"
+  "paper.bcf"
+  "paper.run.xml"
+  "paper.log"

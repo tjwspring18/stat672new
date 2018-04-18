@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.24)  18 APR 2018 12:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.24)  18 APR 2018 18:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -533,46 +533,46 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <img.png, id=28, 911.405pt x 451.6875pt>
 File: img.png Graphic file (type png)
 <use img.png>
-Package pdftex.def Info: img.png  used on input line 289.
+Package pdftex.def Info: img.png  used on input line 290.
 (pdftex.def)             Requested size: 273.4236pt x 135.5073pt.
  [5 <./img.png (PNG copy)>] [6] [7] [8] [9] [10]
 (/usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 662.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 663.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 662.
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 675.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 663.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 676.
 
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 675.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 676.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [11] [12]
-Overfull \hbox (7.8962pt too wide) in paragraph at lines 762--762
+Overfull \hbox (7.8962pt too wide) in paragraph at lines 763--763
 []\OT1/cmr/m/n/10 Ofer Dekel et al. ``Op-ti-mal dis-tributed on-line pre-dic-ti
 on us-ing mini-batches''.
  []
 
 
-Overfull \hbox (0.18614pt too wide) in paragraph at lines 762--762
+Overfull \hbox (0.18614pt too wide) in paragraph at lines 763--763
 []\OT1/cmr/m/n/10 Yehuda Ko-ren. ``The bel-lkor so-lu-tion to the net-flix gran
 d prize''. In: (2009). 
  []
 
 
-Overfull \hbox (5.42592pt too wide) in paragraph at lines 762--762
+Overfull \hbox (5.42592pt too wide) in paragraph at lines 763--763
 \OT1/cmr/m/it/10 tributed pro-cess-ing: Ex-plo-rations in the mi-crostruc-ture 
 of cog-ni-tion \OT1/cmr/m/n/10 1 (1986),
  []
@@ -615,7 +615,7 @@ dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2017/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2017/texmf-dis
 t/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/texmf
 -dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on paper.pdf (14 pages, 403490 bytes).
+Output written on paper.pdf (14 pages, 403583 bytes).
 PDF statistics:
  152 PDF objects out of 1000 (max. 8388607)
  108 compressed objects within 2 object streams
