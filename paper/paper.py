@@ -27,7 +27,7 @@ def SGD(X, Y, gamma, epsilon, maxiter):
 		else:
 			w = update
 	return(w)
-#print(GD(X, Y, 0.05, 0.0001, 10000000))
-#print(SGD(X, Y, 0.05, 0.00001, 10000000))
+#print(GD(X, Y, 0.05, 0.00001, 10000000))
+print(SGD(X, Y, 0.05, 0.00001, 10000000))
 
 

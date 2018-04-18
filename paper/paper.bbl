@@ -461,57 +461,6 @@
       \field{pages}{661\bibrangedash 670}
       \range{pages}{10}
     \endentry
-    \entry{mikolov2013distributed}{inproceedings}{}
-      \name{author}{5}{}{%
-        {{uniquename=0,uniquepart=base,hash=a2d359b12ca2fadf0b40136a73f021bb}{%
-           family={Mikolov},
-           familyi={M\bibinitperiod},
-           given={Tomas},
-           giveni={T\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=8d569d1d5b8b5a7836017a98b430f959}{%
-           family={Sutskever},
-           familyi={S\bibinitperiod},
-           given={Ilya},
-           giveni={I\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=ee3f7d7b96add98106db907e189d6c13}{%
-           family={Chen},
-           familyi={C\bibinitperiod},
-           given={Kai},
-           giveni={K\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=d07609f7580c5f06cf743ebef86d1663}{%
-           family={Corrado},
-           familyi={C\bibinitperiod},
-           given={Greg\bibnamedelima S},
-           giveni={G\bibinitperiod\bibinitdelim S\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=62f954323339abeba6c6a240e9d2855b}{%
-           family={Dean},
-           familyi={D\bibinitperiod},
-           given={Jeff},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{d4849f6d57e38d9b9846cfb360e45131}
-      \strng{fullhash}{c9d4019186e668f056a10a410a6442f4}
-      \strng{bibnamehash}{d4849f6d57e38d9b9846cfb360e45131}
-      \strng{authorbibnamehash}{d4849f6d57e38d9b9846cfb360e45131}
-      \strng{authornamehash}{d4849f6d57e38d9b9846cfb360e45131}
-      \strng{authorfullhash}{c9d4019186e668f056a10a410a6442f4}
-      \field{sortinit}{M}
-      \field{sortinithash}{cfd219b90152c06204fab207bc6c7cab}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Advances in neural information processing systems}
-      \field{title}{Distributed representations of words and phrases and their compositionality}
-      \field{year}{2013}
-      \field{pages}{3111\bibrangedash 3119}
-      \range{pages}{9}
-    \endentry
     \entry{nesterov}{article}{}
       \name{author}{1}{}{%
         {{uniquename=0,uniquepart=base,hash=8a41b35fe7b3d1725cb95bd7eec40b01}{%
@@ -654,31 +603,6 @@
       \field{year}{2011}
       \field{pages}{693\bibrangedash 701}
       \range{pages}{9}
-    \endentry
-    \entry{rong2014word2vec}{article}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=558260bb3f4aac5ab7dae6ec07788477}{%
-           family={Rong},
-           familyi={R\bibinitperiod},
-           given={Xin},
-           giveni={X\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{558260bb3f4aac5ab7dae6ec07788477}
-      \strng{fullhash}{558260bb3f4aac5ab7dae6ec07788477}
-      \strng{bibnamehash}{558260bb3f4aac5ab7dae6ec07788477}
-      \strng{authorbibnamehash}{558260bb3f4aac5ab7dae6ec07788477}
-      \strng{authornamehash}{558260bb3f4aac5ab7dae6ec07788477}
-      \strng{authorfullhash}{558260bb3f4aac5ab7dae6ec07788477}
-      \field{sortinit}{R}
-      \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:1411.2738}
-      \field{title}{word2vec parameter learning explained}
-      \field{year}{2014}
     \endentry
     \entry{rumelhart1986general}{article}{}
       \true{moreauthor}
