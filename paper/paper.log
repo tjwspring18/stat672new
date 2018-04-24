@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.24)  18 APR 2018 18:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.24)  24 APR 2018 18:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -294,7 +294,7 @@ Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/blx-dm.def)
-Package biblatex Info: Trying to load biblatex citestyle data model...
+Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'authoryear.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
@@ -391,11 +391,11 @@ File: biblatex.def 2017/12/19 v3.10 biblatex compatibility (PK/JW/AB)
 \c@biburllcpenalty=\count288
 \c@smartand=\count289
 )
-Package biblatex Info: Trying to load bibliography style 'numeric'...
-Package biblatex Info: ... file 'numeric.bbx' found.
+Package biblatex Info: Trying to load bibliography style 'authoryear'...
+Package biblatex Info: ... file 'authoryear.bbx' found.
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
-File: numeric.bbx 2017/12/19 v3.10 biblatex bibliography style (PK/JW/AB)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx
+File: authoryear.bbx 2017/12/19 v3.10 biblatex bibliography style (PK/JW/AB)
 Package biblatex Info: Trying to load bibliography style 'standard'...
 Package biblatex Info: ... file 'standard.bbx' found.
 
@@ -559,37 +559,25 @@ LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[11] [12]
-Overfull \hbox (7.8962pt too wide) in paragraph at lines 763--763
-[]\OT1/cmr/m/n/10 Ofer Dekel et al. ``Op-ti-mal dis-tributed on-line pre-dic-ti
-on us-ing mini-batches''.
+[11] [12] [13]
+Overfull \hbox (4.28839pt too wide) in paragraph at lines 763--763
+[][]\OT1/cmr/m/n/10 Zhang, Tong (2004). ``Solv-ing large scale lin-ear pre-dic-
+tion prob-lems us-ing stochas-
  []
 
-
-Overfull \hbox (0.18614pt too wide) in paragraph at lines 763--763
-[]\OT1/cmr/m/n/10 Yehuda Ko-ren. ``The bel-lkor so-lu-tion to the net-flix gran
-d prize''. In: (2009). 
- []
-
-
-Overfull \hbox (5.42592pt too wide) in paragraph at lines 763--763
-\OT1/cmr/m/it/10 tributed pro-cess-ing: Ex-plo-rations in the mi-crostruc-ture 
-of cog-ni-tion \OT1/cmr/m/n/10 1 (1986),
- []
-
-[13] [14] (./paper.aux)
+[14] (./paper.aux)
 Package logreq Info: Writing requests to 'paper.run.xml'.
 \openout1 = `paper.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 11452 strings out of 494427
- 191687 string characters out of 6167361
- 696894 words of memory out of 5000000
- 14660 multiletter control sequences out of 15000+600000
+ 11516 strings out of 494427
+ 192555 string characters out of 6167361
+ 699065 words of memory out of 5000000
+ 14725 multiletter control sequences out of 15000+600000
  17112 words of font info for 63 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 44i,15n,46p,820b,1352s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,15n,46p,820b,1352s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -615,7 +603,7 @@ dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2017/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2017/texmf-dis
 t/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/texmf
 -dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on paper.pdf (14 pages, 403583 bytes).
+Output written on paper.pdf (14 pages, 403585 bytes).
 PDF statistics:
  152 PDF objects out of 1000 (max. 8388607)
  108 compressed objects within 2 object streams

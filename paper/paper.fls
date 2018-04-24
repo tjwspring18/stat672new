@@ -81,8 +81,8 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/blx-compat.def
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/blx-compat.def
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/biblatex.def
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/biblatex.def
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/cbx/authoryear.cbx
