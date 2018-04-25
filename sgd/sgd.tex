@@ -26,27 +26,44 @@
 %%%%%%%%%%%%% Introduction %%%%%%%%%%%%%%
 
 \begin{frame}
-	\frametitle{Optimization is fundamental to statistical modeling}
+	\frametitle{Estimating model coefficients requires optimization}
+	We typically fit statistical models to maximize some measure of goodness
+	(e.g., likelihood) or minimize some measure of badness (e.g., risk)
+	\\~\\
+
+	Parametric assumptions can make this optimization very nice \\~\\
+
+	OLS has a closed form solution: $\hat{\bm{\beta}} =
+	(\bm{X}'\bm{X})\bm{X}'\bm{Y}$ \\~\\
+
+	GLM often uses Newton's method
+	\begin{itemize}
+		\item \small Knowing the PDF makes finding the
+			Hessian (2nd order derivatives) not too onerous \\~\\
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Non-parametric \& high-dimensional settings}
 	Suppose that we have a typical supervised classification problem
 	\begin{itemize}
 		\item \small Non-parametric: no assumptions about distribution of data
 		\item Feature vector $\mathbf{X}_i$, label $Y_i$
-		\item Want to find best prediction function $f_w^*$ from class $\mathcal{F}$
+		\item Want to find best prediction function $f^*(\bm{w}; \bm{X})$ from
+			hypothesis class $\mathcal{F}$
 		\item Optimization: pick weights $\hat{\bm{w}}$ that minimize
 			empirical risk according to some convex
-			loss function $L(f_w(x), y)$ \\~\\
+			loss function \\~\\
 	\end{itemize}
 
-	Our lack of assumptions takes away some familiar tools for finding $\hat{\mathbf{w}}$
-	\begin{itemize}
-		\item \small Cannot analytically identify $\hat{\mathbf{w}}$
-			(e.g. in OLS $=(X'X)^{-1}X'Y$))
-		\item \small Newton-Raphson requires 2nd derivative of $L$,
-			which might be a pain (unlike in, for example, GLM)\\~\\
-	\end{itemize}
+	Some familiar tools for finding $\hat{\mathbf{w}}$ no longer work well
+	\\~\\
 
 	But we still know that if $L$ is convex, there is a unique global
-	minimum, and the gradient at that point must be 0
+	minimum, and the gradient at that point must be 0 \\~\\
+
+	Gradient descent is a numerical strategy to search for that point
 \end{frame}
 
 \begin{frame}
@@ -60,19 +77,13 @@
 \begin{frame}
 	\frametitle{A more formal explanation}
 
-	$\mathbf{w}_{t+1} = \mathbf{w}_t - \gamma \frac{1}{n}\sum_{i=1}^n
-	\nabla_w L(f_w(\mathbf{X}_i), y_i)$ \\~\\
+	$\mathbf{w}^{(t+1)} = \mathbf{w}^{(t)} - \gamma \frac{1}{n}\sum_{i=1}^n
+	\nabla_w L(f(\bm{w}^{(t)}; \mathbf{X}_i), Y_i)$ \\~\\
 
 	Stop if gradient $\leq \epsilon$ \\~\\
 
 	Step size $\gamma$ can vary over time \\~\\
 
-	Theoretical guarantees on speed of convergence ($\rho :=$ size of error):
-	\begin{itemize}
-		\item Version presented here: $ - \log \rho \sim t$
-		\item More optimized version: $ - \log \log \rho \sim t$ \\~\\
-	\end{itemize}
-	
 \end{frame}
 
 \begin{frame}
@@ -81,17 +92,15 @@
 	we have to evaluate the gradient at \textcolor{blue} {every observation}
 
 	$$
-	\textcolor{red}{\mathbf{w}_{t+1}} = \mathbf{w}_t - \gamma \frac{1}{n}
+	\textcolor{red}{\mathbf{w}^{(t+1)}} = \mathbf{w}^{(t)} - \gamma \frac{1}{n}
 	\textcolor{blue}{\sum_{i=1}^n}
-	\nabla_w L(f_w(\mathbf{X}_i), y_i)
+	\nabla_w L(f(\bm{w}^{(t)}; \mathbf{X}_i), Y_i)
 	$$\\~\\
 
 	This becomes computationally intractable as $n$ grows large 
 	\begin{itemize}
-		\item \small If we have $n$ = 10 million, we have to evaluate the
-			gradient 10 million times for every step (and the
-			algorithm may take many steps to converge)\\~\\
-		\item \small May take hours or days to converge \\~\\
+		\item \small If $n$ = 10 million, have to evaluate 
+			gradient 10 million times every step
 	\end{itemize}
 \end{frame}
 
@@ -102,8 +111,8 @@
 	chosen observation $i$:
 
 	$$
-	{\mathbf{w}_{t+1}} = \mathbf{w}_t - \gamma \nabla_w
-	L(f_w(\mathbf{X}_{\textcolor{red}{i}}), y_{\textcolor{red}{i})}
+	{\mathbf{w}^{(t+1)}} = \mathbf{w}^{(t)} - \gamma \nabla_w
+	L(f(\bm{w}^{(w)}; \mathbf{X}_{\textcolor{red}{i}}), Y_{\textcolor{red}{i})}
 	$$ \\~\\
 
 	This simplification makes approximation much ``noisier'', and hence SGD
@@ -135,15 +144,18 @@
 	\end{table}
 
 	\begin{figure}
+		\caption{Fitting OLS coefficients, $n=10$ million}
 	\centering
-	\includegraphics[scale=0.55]{comparison}
+	\includegraphics[scale=0.35]{speed}
 	\end{figure}
 
 			
 \end{frame}
 
 \begin{frame}
-	\frametitle{SGD is widely used in industry}
+	\frametitle{SGD is very popular in academia and industry}
+	Many, many statistical learning models use SGD to fit weights \\~\\
+
 	If a Silicon Valley press release uses any of the following phrases...
 	\begin{itemize}
 		\item \small ``Neural networks''
