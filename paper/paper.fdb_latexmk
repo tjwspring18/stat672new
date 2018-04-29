@@ -1,12 +1,12 @@
 # Fdb version 3
-["biber paper"] 1524610311 "paper.bcf" "paper.bbl" "paper" 1524610327
+["biber paper"] 1524610311 "paper.bcf" "paper.bbl" "paper" 1525016318
   "ascii input as UTF-8" 0 -1 0 ""
-  "paper.bcf" 1524610327 89838 1977509d6414c32858d7d2228fea3537 ""
+  "paper.bcf" 1525016318 89838 1977509d6414c32858d7d2228fea3537 ""
   "paper.bib" 1523927432 8234 7303f96efd51749bc59a4584dd10bfc4 ""
   (generated)
-  "paper.blg"
   "paper.bbl"
-["pdflatex"] 1524610325 "paper.tex" "paper.pdf" "paper" 1524610327
+  "paper.blg"
+["pdflatex"] 1525016316 "paper.tex" "paper.pdf" "paper" 1525016318
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1480098698 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1480098698 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1480098698 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -90,10 +90,10 @@
   "/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty" 1504905757 84352 897a476d96a0681047a5b0f91178a3d2 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty" 1480098820 4115 318a66090112f3aa3f415aeb6fe8540f ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty" 1480098820 2431 fe3078ec12fc30287f568596f8e0b948 ""
-  "/usr/local/texlive/2017/texmf-dist/tex/latex/base/article.cls" 1480098821 19821 310da678527a7dfe2a02c88af38079b7 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/ifthen.sty" 1480098821 5159 a08c9bbd48fc492f15b22e458bef961f ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/omlcmr.fd" 1480098821 2257 15f13452fccbf1841cc4a62831b0d32a ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd" 1480098821 2256 80ce1168fb4ce6a85583a9cf8972c013 ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/base/report.cls" 1480098821 22880 e7be6f7dd8c05d5108bf3a7d8cabe59a ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/size10.clo" 1480098821 8292 e897c12e1e886ce77fe26afc5d470886 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx" 1510525977 7909 4e073c1e09d5c945e30c55bd19ec5325 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/bbx/standard.bbx" 1510525977 24058 cd811a83cd43b6abd1663d66fd536cfd ""
@@ -131,13 +131,15 @@
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1514125355 2589344 e3e8f289402fb761e5a9dc94a585dc77 ""
   "/usr/local/texlive/2017/texmf.cnf" 1514125340 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "img.png" 1523845137 96963 dcbdadd436b8337ced6c1d08d53a2b87 ""
-  "paper.aux" 1524610327 8953 1956004b1d43afeea85806ae19efdc51 ""
+  "paper.aux" 1525016318 11106 a0a7f3aa72a01a67faca8b04df996cc3 ""
   "paper.bbl" 1524610320 42158 e56fdcf03a3b4ba1dba064890d376098 "biber paper"
-  "paper.run.xml" 1524610327 2313 b8c55f5e36dc8e9ae1010d4518563dab ""
-  "paper.tex" 1524610307 31387 f1a8269f107eee2279ef3ea7b2aed3dc ""
+  "paper.run.xml" 1525016318 2313 b8c55f5e36dc8e9ae1010d4518563dab ""
+  "paper.tex" 1525016315 31632 3ab73adb40127310b8aa25b7c055992d ""
+  "paper.toc" 1525016318 2660 69dd15e79b3eb5d4eacae501c0f92b82 ""
   (generated)
-  "paper.log"
-  "paper.pdf"
-  "paper.aux"
   "paper.run.xml"
+  "paper.pdf"
   "paper.bcf"
+  "paper.aux"
+  "paper.toc"
+  "paper.log"
