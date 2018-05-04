@@ -95,6 +95,12 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstmisc.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstmisc.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.cfg
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.cfg
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/geometry/geometry.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/geometry/geometry.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 INPUT paper.aux

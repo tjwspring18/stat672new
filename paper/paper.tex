@@ -24,10 +24,12 @@ showtabs=false,
 tabsize=2,
 basicstyle=\footnotesize}
 
+\usepackage{geometry}
+\geometry{margin=1.5in}
 
 \author{Tom Wallace}
 
-\title{STAT 672 final project:\\ Stochastic gradient descent}
+\title{STAT 672 Final Project: Stochastic Gradient Descent}
 
 \begin{document}
 
@@ -56,7 +58,7 @@ SGD is an optimization algorithm commonly used for fitting coefficients
 in statistical models, particularly in non-parametric and large-$n$ settings.
 Before covering exactly how SGD works, we contextualize its advantages in these areas.
 
-\subsection{Parametric vs. non-parametric}
+\subsection{Parametric vs. non-parametric approaches}
 
 Consider a feature matrix $\bm{X}$ and outcome variable $\bm{Y}$, and the task
 of fitting coefficients in a model to predict $Y_i$ based on $\bm{X}_i$. 
@@ -267,7 +269,7 @@ reach accuracy $\rho$ scales only with $\rho$, while GD's scales with both
 $\rho$ and---crucially---linearly with $n$. So, the larger $n$ grows, the larger
 SGD's computational advantage over GD.
 
-\begin{table}[t]
+\begin{table}[h]
 	\centering
 	\caption{Asymptotic comparison of GD and SGD}
 	\begin{tabular}{|l l l|}
@@ -388,7 +390,7 @@ Nesterov accelerated gradient (NAG) (\cite{nesterov}), Adam
 
 \subsection{Averaging}
 
-Averaged SGD (ASGD)---first proposed in 
+Averaged SGD (ASGD)---proposed in
 \cite{polyak1992acceleration}---is another variation. Typically, we consider
 $\hat{w}$ to be the final iteration
 of SGD, when some stop condition is met. For example, in a situation where we
@@ -654,6 +656,30 @@ observation per iteration.
 There have been further efforts to improve SGD for the specific application of
 SVM, most notably the Pegasos algorithm of \cite{shalev2011pegasos}.
 
+\subsection{Neural networks and back-propagation}
+
+Neural networks are another class of statistical learning
+models for which SGD plays a fundamental role in estimating weights, in
+particular through a process called back-propagation. Space
+constraints disallow a detailed examination along the lines of that conducted
+for SVM. This subsection aims only to note that SGD is widely used with neural
+networks, and that this usage provides the practical motivation behind many of
+the extensions to the SGD algorithm covered in Section 2.3. This is not to say
+that these techniques are \textit{solely} intended for neural networks---indeed,
+many of them precede neural networks' current popularity---but
+their utility for neural networks is part of why the relevant papers have
+thousands of citations.
+
+Neural networks
+often use non-convex loss functions that have multiple local minima in
+which SGD can get ``lost'' while searching for global minimum.
+Acceleration and momentum (2.3.2) thus are required to achieve effective
+training, particularly on ``deep'' networks with many hidden layers
+(\cite{sutskever2013importance}). Neural networks are
+often extremely complex and high-dimensional and hence require enormous training
+data (\cite{lecun2015deep}); hence, speeding up computation via parallelization
+(2.3.5) or GPU computing is common. 
+
 \section{Simulation case study}
 
 Simulation provides an example of the computational advantages of SGD. 
@@ -728,9 +754,9 @@ def SGD(X, Y, gamma, epsilon, maxiter):
 
 \section{Real-world applications}
 
-If a Silicon Valley press release uses words like ``artificial intelligence'',
+If a Silicon Valley press release uses phrases like ``artificial intelligence'',
 ``machine learning'', and ``big data'' to describe a new product or service, it very likely
-uses SGD in some way. Such is the extent of SGD's popularity. 
+relies upon SGD in some way. Such is the extent of SGD's popularity. 
 Below are some prominent examples of SGD's practical
 applications.
 

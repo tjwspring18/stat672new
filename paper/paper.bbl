@@ -94,7 +94,7 @@
       \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the fifth annual workshop on Computational learning theory}
+      \field{booktitle}{Proceedings of the fifth annual workshop on computational learning theory}
       \field{title}{A training algorithm for optimal margin classifiers}
       \field{year}{1992}
       \field{pages}{144\bibrangedash 152}
@@ -388,19 +388,19 @@
            given={Ilya},
            giveni={I\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=5aeb1de9b6c6f00a078230c628e6f41c}{%
+        {{uniquename=0,uniquepart=base,hash=9a8750ccdb2a4cf14d2655face1ce016}{%
            family={Hinton},
            familyi={H\bibinitperiod},
-           given={Geoffrey\bibnamedelima E},
-           giveni={G\bibinitperiod\bibinitdelim E\bibinitperiod},
+           given={Geoffrey},
+           giveni={G\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{3ab31bf58af50e5ea6fa561177bf01a9}
-      \strng{fullhash}{3ab31bf58af50e5ea6fa561177bf01a9}
-      \strng{bibnamehash}{3ab31bf58af50e5ea6fa561177bf01a9}
-      \strng{authorbibnamehash}{3ab31bf58af50e5ea6fa561177bf01a9}
-      \strng{authornamehash}{3ab31bf58af50e5ea6fa561177bf01a9}
-      \strng{authorfullhash}{3ab31bf58af50e5ea6fa561177bf01a9}
+      \strng{namehash}{e7b9ce2282d123f3a75ab23afec17231}
+      \strng{fullhash}{e7b9ce2282d123f3a75ab23afec17231}
+      \strng{bibnamehash}{e7b9ce2282d123f3a75ab23afec17231}
+      \strng{authorbibnamehash}{e7b9ce2282d123f3a75ab23afec17231}
+      \strng{authornamehash}{e7b9ce2282d123f3a75ab23afec17231}
+      \strng{authorfullhash}{e7b9ce2282d123f3a75ab23afec17231}
       \field{sortinit}{K}
       \field{sortinithash}{9fd838a31ba64d981e8f44562bd33f89}
       \field{extradatescope}{labelyear}
@@ -412,6 +412,50 @@
       \field{year}{2012}
       \field{pages}{1097\bibrangedash 1105}
       \range{pages}{9}
+    \endentry
+    \entry{lecun2015deep}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=6a1aa6b7eab12b931ca7c7e3f927231d}{%
+           family={LeCun},
+           familyi={L\bibinitperiod},
+           given={Yann},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=40a8e4774982146adc2688546f54efb2}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={Yoshua},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=9a8750ccdb2a4cf14d2655face1ce016}{%
+           family={Hinton},
+           familyi={H\bibinitperiod},
+           given={Geoffrey},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Nature Publishing Group}%
+      }
+      \strng{namehash}{c6c75bd00ce5a488e91a749d8383b3df}
+      \strng{fullhash}{c6c75bd00ce5a488e91a749d8383b3df}
+      \strng{bibnamehash}{c6c75bd00ce5a488e91a749d8383b3df}
+      \strng{authorbibnamehash}{c6c75bd00ce5a488e91a749d8383b3df}
+      \strng{authornamehash}{c6c75bd00ce5a488e91a749d8383b3df}
+      \strng{authorfullhash}{c6c75bd00ce5a488e91a749d8383b3df}
+      \field{sortinit}{L}
+      \field{sortinithash}{2c7981aaabc885868aba60f0c09ee20f}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature}
+      \field{number}{7553}
+      \field{title}{Deep learning}
+      \field{volume}{521}
+      \field{year}{2015}
+      \field{pages}{436}
+      \range{pages}{1}
     \endentry
     \entry{li2014efficient}{inproceedings}{}
       \name{author}{4}{}{%
@@ -455,7 +499,7 @@
       \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the 20th ACM SIGKDD international conference on Knowledge discovery and data mining}
+      \field{booktitle}{Proceedings of the 20th ACM SIGKDD international conference on knowledge discovery and data mining}
       \field{title}{Efficient mini-batch training for stochastic optimization}
       \field{year}{2014}
       \field{pages}{661\bibrangedash 670}
@@ -608,31 +652,31 @@
       \true{moreauthor}
       \true{morelabelname}
       \name{author}{3}{}{%
-        {{uniquename=0,uniquepart=base,hash=d198ae71c61c758b90826c452447133f}{%
+        {{uniquename=0,uniquepart=base,hash=026532b517837608b51c6a36bc4a3b5d}{%
            family={Rumelhart},
            familyi={R\bibinitperiod},
-           given={David\bibnamedelima E},
-           giveni={D\bibinitperiod\bibinitdelim E\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=5aeb1de9b6c6f00a078230c628e6f41c}{%
+        {{uniquename=0,uniquepart=base,hash=9a8750ccdb2a4cf14d2655face1ce016}{%
            family={Hinton},
            familyi={H\bibinitperiod},
-           given={Geoffrey\bibnamedelima E},
-           giveni={G\bibinitperiod\bibinitdelim E\bibinitperiod},
+           given={Geoffrey},
+           giveni={G\bibinitperiod},
            givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=675d1a7b106bfedced16f3e16b06f488}{%
+        {{uniquename=0,uniquepart=base,hash=0fcdaf72d468af2c3f4ecc80fd7d2b3f}{%
            family={McClelland},
            familyi={M\bibinitperiod},
-           given={James\bibnamedelima L},
-           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{ad8ed03b48169c05b35e2bc48aa8da03}
-      \strng{fullhash}{ad8ed03b48169c05b35e2bc48aa8da03}
-      \strng{bibnamehash}{ad8ed03b48169c05b35e2bc48aa8da03}
-      \strng{authorbibnamehash}{ad8ed03b48169c05b35e2bc48aa8da03}
-      \strng{authornamehash}{ad8ed03b48169c05b35e2bc48aa8da03}
-      \strng{authorfullhash}{ad8ed03b48169c05b35e2bc48aa8da03}
+      \strng{namehash}{114b19cf4c0caf2aa9b63e360b711e18}
+      \strng{fullhash}{114b19cf4c0caf2aa9b63e360b711e18}
+      \strng{bibnamehash}{114b19cf4c0caf2aa9b63e360b711e18}
+      \strng{authorbibnamehash}{114b19cf4c0caf2aa9b63e360b711e18}
+      \strng{authornamehash}{114b19cf4c0caf2aa9b63e360b711e18}
+      \strng{authorfullhash}{114b19cf4c0caf2aa9b63e360b711e18}
       \field{sortinit}{R}
       \field{sortinithash}{da6b42bd3ab22fee61abed031ee405f7}
       \field{extradatescope}{labelyear}
@@ -871,6 +915,51 @@
       \field{year}{2017}
       \field{pages}{354}
       \range{pages}{1}
+    \endentry
+    \entry{sutskever2013importance}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=8d569d1d5b8b5a7836017a98b430f959}{%
+           family={Sutskever},
+           familyi={S\bibinitperiod},
+           given={Ilya},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=6811d5cc72244219e1b98cf2bb1b64f1}{%
+           family={Martens},
+           familyi={M\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=ba040554cec389bc8b5dc4b20d44218c}{%
+           family={Dahl},
+           familyi={D\bibinitperiod},
+           given={George},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=9a8750ccdb2a4cf14d2655face1ce016}{%
+           family={Hinton},
+           familyi={H\bibinitperiod},
+           given={Geoffrey},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{07c96466e3b9e93bc5fe1db0e089e9d6}
+      \strng{fullhash}{9cdbdb5ed37d642e2881c7a467f38028}
+      \strng{bibnamehash}{07c96466e3b9e93bc5fe1db0e089e9d6}
+      \strng{authorbibnamehash}{07c96466e3b9e93bc5fe1db0e089e9d6}
+      \strng{authornamehash}{07c96466e3b9e93bc5fe1db0e089e9d6}
+      \strng{authorfullhash}{9cdbdb5ed37d642e2881c7a467f38028}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International conference on machine learning}
+      \field{title}{On the importance of initialization and momentum in deep learning}
+      \field{year}{2013}
+      \field{pages}{1139\bibrangedash 1147}
+      \range{pages}{9}
     \endentry
     \entry{tibs_notes}{misc}{}
       \name{author}{1}{}{%
