@@ -34,7 +34,7 @@
 	Parametric assumptions can make this optimization ``nice'' \\~\\
 
 	OLS has a closed form solution: $\hat{\bm{\beta}} =
-	(\bm{X}'\bm{X})\bm{X}'\bm{Y}$ \\~\\
+	(\bm{X}'\bm{X})^{-1}\bm{X}'\bm{Y}$ \\~\\
 
 	GLM often uses Newton's method
 	\begin{itemize}
@@ -57,7 +57,7 @@
 			loss function \\~\\
 	\end{itemize}
 
-	Some familiar tools for finding $\hat{\mathbf{w}}$ no longer work well
+	Some familiar tools for finding $\hat{\mathbf{w}}$ may no longer work well
 	\\~\\
 
 	But we still know that if $L$ is convex, there is a unique global
@@ -67,7 +67,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Gradient descent is an iterative search procedure}
+	\frametitle{Gradient descent visualized}
 	\begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.33]{Sketch}
@@ -80,7 +80,7 @@
 	$\mathbf{w}^{(t+1)} = \mathbf{w}^{(t)} - \gamma \frac{1}{n}\sum_{i=1}^n
 	\nabla_w L(f(\bm{w}^{(t)}; \mathbf{X}_i), Y_i)$ \\~\\
 
-	Stop if gradient $\leq \epsilon$ \\~\\
+	Stop if $||\mathrm{gradient}||_2$ $\leq \epsilon$ \\~\\
 
 	Step size $\gamma$ can vary over time \\~\\
 
@@ -112,7 +112,7 @@
 
 	$$
 	{\mathbf{w}^{(t+1)}} = \mathbf{w}^{(t)} - \gamma \nabla_w
-	L(f(\bm{w}^{(w)}; \mathbf{X}_{\textcolor{red}{i}}), Y_{\textcolor{red}{i})}
+	L(f(\bm{w}^{(t)}; \mathbf{X}_{\textcolor{red}{i}}), Y_{\textcolor{red}{i})}
 	$$ \\~\\
 
 	This simplification makes approximation much ``noisier'', and hence SGD
@@ -154,16 +154,19 @@
 
 \begin{frame}
 	\frametitle{SGD is very popular in academia and industry}
-	Many, many, \textit{many} statistical learning models use SGD to fit weights \\~\\
+	Many statistical learning models use SGD to fit weights \\~\\
+
+	Particularly popular for neural networks (backpropagation) \\~\\
 
 	If a Silicon Valley press release uses any of the following phrases...
 	\begin{itemize}
-		\item \small ``Neural networks''
-		\item ``Machine learning''
-		\item ``AI'' 
+		\item \small ``Machine learning''
+		\item \small ``AI'' 
+		\item \small ``Cognitive computing''
 	\end{itemize}
 
 	...SGD probably is involved. \\~\\
+
 	
 \end{frame}
 
